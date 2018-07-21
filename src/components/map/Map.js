@@ -5,6 +5,9 @@ import './Map.css';
 class Map extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            gmap: undefined
+        }
     }
 
     componentDidMount() {
@@ -22,7 +25,16 @@ class Map extends Component {
                 map: map,
                 title: 'Hello World!'
             });
-        })
+        });
+
+        this.setState({
+            gmap: map
+        });
+    }
+
+    componentDidUpdate() {
+        const {lat, lng} = this.props;
+        this.state.gmap.setCenter(new google.maps.LatLng( lat, lng ));
     }
 
     render() {

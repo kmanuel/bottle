@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom'
 import Welcome from './views/welcome/Welcome';
 import Login from './views/login/Login';
+import Overview from './views/overview/Overview';
 import './App.css';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
           <div>
             <Route exact path="/" component={Welcome}/>
             <Route path="/login" component={Login}/>
+            <Route path="/overview" component={Overview}/>
           </div>
         </Router>
       </div>

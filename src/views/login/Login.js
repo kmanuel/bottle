@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
@@ -74,11 +75,13 @@ class Login extends Component {
                         />
                     </div>
                     <div className="buttons">
-                        <Button
-                            className={'login-form-button ' + classes.button}
-                            variant="contained" color="primary">
-                            Login
-                        </Button>
+                        <Link to="/overview">
+                            <Button
+                                className={'login-form-button ' + classes.button}
+                                variant="contained" color="primary">
+                                Login
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </div>

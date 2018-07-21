@@ -1,12 +1,19 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import {withStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+
+import NavbarAccountMenu from './navbar-account-menu/NavbarAccountMenu';
 
 const styles = {
     root: {
@@ -21,27 +28,76 @@ const styles = {
     },
 };
 
-function ButtonAppBar(props) {
-    const { classes } = props;
-    return (
-        <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                        <MenuIcon />
+class Navbar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false,
+            anchor: 'left',
+        };
+    }
+
+    handleDrawerOpen = () => {
+        console.log('drawer open');
+        this.setState({open: true});
+    };
+
+    handleDrawerClose = () => {
+        this.setState({open: false});
+    };
+
+    render() {
+        const {classes} = this.props;
+        const drawer = (
+            <Drawer
+                variant="persistent"
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
+                open={this.state.open}>
+                <div className={classes.drawerHeader}>
+                    <IconButton onClick={this.handleDrawerClose}>
+                        {<ChevronLeftIcon />}
                     </IconButton>
-                    <Typography variant="title" color="inherit" className={classes.flex}>
-                        News
-                    </Typography>
-                    <Button color="inherit">Login</Button>
-                </Toolbar>
-            </AppBar>
-        </div>
-    );
+                </div>
+                <Divider />
+                <List>
+                    <Link to="my-collected-bottles">
+                        Collected Bottles
+                    </Link>
+                </List>
+                <Divider />
+                <List>
+                    <Link to="my-dropped-bottles">
+                        Dropped Bottles
+                    </Link>
+                </List>
+            </Drawer>
+        );
+
+        return (
+            <div className={classes.root}>
+                <AppBar position="static">
+                    <Toolbar>
+                        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu"
+                                    onClick={this.handleDrawerOpen}>
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography variant="title" color="inherit" className={classes.flex}>
+                            Bottler#1
+                        </Typography>
+                        <NavbarAccountMenu />
+                    </Toolbar>
+                </AppBar>
+                {drawer}
+            </div>
+        );
+    }
 }
 
-ButtonAppBar.propTypes = {
+
+Navbar.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ButtonAppBar);
+export default withStyles(styles)(Navbar);

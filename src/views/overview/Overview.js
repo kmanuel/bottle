@@ -5,7 +5,6 @@ import './Overview.css';
 
 const Overview = () => (
     <div className="overview">
-        <Navigation />
         Overview
     </div>
 );

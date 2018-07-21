@@ -31,7 +31,10 @@ class Map extends Component {
         this.state.gmap.setCenter(new google.maps.LatLng( lat, lng ));
 
         this.props.bottles.map(bottle => {
-            const markerLocation = bottle.position;
+            const markerLocation = {
+                lat: bottle.lat,
+                lng: bottle.lng
+            };
             new google.maps.Marker({
                 position: {lat: markerLocation.lat, lng: markerLocation.lng},
                 map: this.state.gmap,

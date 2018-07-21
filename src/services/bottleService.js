@@ -19,29 +19,39 @@ const saveLocalStorage = () => {
 
 const createBottle = (pos) => {
     const newBottle = {
-        id: bottles.length,
-        position: pos
+        lat: pos.lat,
+        lng: pos.lng
     };
 
     bottles.push(newBottle);
 
     saveLocalStorage();
 
-    fetch(`${API_URL}/bottles`,
+    return fetch(`${API_URL}/bottles`,
         {
             method: 'POST',
-            body: {newBottle}
+            body: JSON.stringify(newBottle)
         })
-        .then((res) => console.log(res))
+        .then((res) => res)
         .catch(err => console.log(err));
 
-    return Promise.resolve(newBottle);
+
 };
 
 const getBottles = () => {
     return fetch(`${API_URL}/bottles`)
         .then(res => res.json())
-        .then(data => data.bottles);
+        .then(data => {
+            console.log('data received: ', data);
+            return data.Items.map(bottleDto => {
+                console.log('mapping bottleDto', bottleDto);
+                return {
+                    id: bottleDto.BottleId,
+                    lat: parseFloat(bottleDto.lat.N),
+                    lng: parseFloat(bottleDto.lng.N)
+                }
+            })
+        });
 };
 
 export {createBottle, getBottles};

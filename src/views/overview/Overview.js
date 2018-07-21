@@ -35,13 +35,19 @@ class Overview extends Component {
 
     loadBottles() {
         bottleService.getBottles()
-            .then(bottles => this.setState({bottles}))
+            .then(bottles => {
+                console.log('received bottles', bottles);
+                this.setState({bottles})
+            })
             .catch(err => console.log('could not fetch bottles', err));
     }
 
     checkDistanceToBottles(coords) {
         this.state.bottles.map(bottle => {
-            const bottlePosition = bottle.position;
+            const bottlePosition = {
+                lat: bottle.lat,
+                lng: bottle.lng
+            };
             const distance = getDistanceBetweenInMeters(coords, bottlePosition);
             if (distance < METERS_10) {
                 if (!this.state.onBottle) {
@@ -139,8 +145,12 @@ class Overview extends Component {
             lng: this.state.lng
         };
 
-        if (bottle && bottle.position) {
-            const bottlePosition = bottle.position;
+
+        if (bottle) {
+            const bottlePosition = {
+                lat: bottle.lat,
+                lng: bottle.lng
+            };
             const distance = getDistanceBetweenInMeters(position, bottlePosition);
 
             return distance < 100;
@@ -152,7 +162,10 @@ class Overview extends Component {
 
         const {lat, lng, bottles} = this.state;
 
-        const nearbyBottles = bottles.filter(this.isCloserThan100Meters);
+        let nearbyBottles = [];
+        if (bottles) {
+            nearbyBottles = bottles.filter(this.isCloserThan100Meters);
+        }
 
         return (
             <div className="overview">

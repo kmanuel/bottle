@@ -6,6 +6,8 @@ import {
 import Navbar from './components/navbar/Navbar';
 import Welcome from './views/welcome/Welcome';
 import Login from './views/login/Login';
+import CollectedBottles from './views/collected-bottles/CollectedBottles';
+import DroppedBottles from './views/dropped-bottles/DroppedBottles';
 import Overview from './views/overview/Overview';
 import './App.css';
 
@@ -14,14 +16,16 @@ class App extends Component {
         return (
             <div className="App">
                 <Router>
-                    <div class="main">
-                        <div class="nav">
+                    <div className="main">
+                        <div className="nav">
                             <Navbar className="nav"/>
                         </div>
                         <div className="content">
                         <Route exact path="/" component={Welcome}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/overview" component={Overview}/>
+                        <Route path="/dropped-bottles" component={DroppedBottles}/>
+                        <Route path="/collected-bottles" component={CollectedBottles}/>
                         </div>
                     </div>
                 </Router>

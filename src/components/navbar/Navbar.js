@@ -62,13 +62,19 @@ class Navbar extends Component {
                 </div>
                 <Divider />
                 <List>
-                    <Link to="my-collected-bottles">
+                    <Link to="/overview">
+                        Overview
+                    </Link>
+                </List>
+                <Divider />
+                <List>
+                    <Link to="collected-bottles">
                         Collected Bottles
                     </Link>
                 </List>
                 <Divider />
                 <List>
-                    <Link to="my-dropped-bottles">
+                    <Link to="dropped-bottles">
                         Dropped Bottles
                     </Link>
                 </List>

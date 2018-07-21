@@ -7,13 +7,17 @@
 
 
 .welcome-image {
-    flex: 1 1 75%;
+    flex: 1 0 50%;
     width: 300px;
+}
+
+.login-form-holder {
+    flex: 0 0 25%;
 }
 
 .welcome-buttons {
     display: flex;
-    flex: auto;
+    flex: 0 0 25%;
     justify-items: center;
     align-items: center;
 }

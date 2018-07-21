@@ -12,13 +12,21 @@ const styles = theme => ({
 
 const Overview = (props) => {
     const classes = props;
+    const lat = 48.223973;
+    const lng = 16.365172;
+    const markers = [
+        {lat: 48.223973, lng: 16.365172},
+        {lat: 48.223404, lng: 16.367238}
+    ];
     return (
         <div className="overview">
-            <span>2 Bottles nearby!</span>
-            <Map />
-            Overview
+            <span className="overview-text">2 Bottles nearby!</span>
+            <div className="map">
+            <Map lat={lat} lng={lng} zoom={15} markers={markers} />
+            </div>
             <Button
-                className={'login-form-button ' + classes.button}
+                id="leave-bottle-btn"
+                className={classes.button}
                 variant="contained" color="primary">
                 Leave a bottle
             </Button>

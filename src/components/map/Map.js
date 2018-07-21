@@ -19,7 +19,7 @@ class Map extends Component {
             }
         });
 
-        this.props.markers.map(markerLocation => {
+        this.props.bottlePositions.map(markerLocation => {
             new google.maps.Marker({
                 position: {lat: markerLocation.lat, lng: markerLocation.lng},
                 map: map,

@@ -25,3 +25,9 @@
 #leave-bottle-btn {
     margin: 10px;
 }
+
+.on-bottle {
+    position: absolute;
+    width: 100vw;
+    height: 80vh;
+}

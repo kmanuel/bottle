@@ -1,3 +1,6 @@
+const API_URL = 'https://j4mfxo6i2m.execute-api.eu-central-1.amazonaws.com/dev';
+
+
 const defaultBottles = [
     {
         id: 0,
@@ -24,11 +27,21 @@ const createBottle = (pos) => {
 
     saveLocalStorage();
 
+    fetch(`${API_URL}/bottles`,
+        {
+            method: 'POST',
+            body: {newBottle}
+        })
+        .then((res) => console.log(res))
+        .catch(err => console.log(err));
+
     return Promise.resolve(newBottle);
 };
 
 const getBottles = () => {
-    return Promise.resolve(bottles);
+    return fetch(`${API_URL}/bottles`)
+        .then(res => res.json())
+        .then(data => data.bottles);
 };
 
 export {createBottle, getBottles};

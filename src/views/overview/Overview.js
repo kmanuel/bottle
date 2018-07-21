@@ -19,25 +19,33 @@ class Overview extends Component {
 
         this.updatePosition = this.updatePosition.bind(this);
         this.getPosition = this.getPosition.bind(this);
+        this.viewBottle = this.viewBottle.bind(this);
+        this.isCloserThan100Meters = this.isCloserThan100Meters.bind(this);
 
         this.state = {
             lat: 0,
             lng: 0,
-            bottlePositions: [
-                {lat: 48.223973, lng: 16.365172},
-                {lat: 48.223404, lng: 16.367238}
+            bottles: [
+                {
+                    id: 0,
+                    position: {lat: 48.223973, lng: 16.365172}
+                }, {
+                    id: 1,
+                    position: {lat: 48.223404, lng: 16.367238}
+                }
             ],
             onBottle: undefined
         };
     }
 
     checkDistanceToBottles(coords) {
-        this.state.bottlePositions.map(bottlePosition => {
+        this.state.bottles.map(bottle => {
+            const bottlePosition = bottle.position;
             const distance = getDistanceBetweenInMeters(coords, bottlePosition);
             if (distance < METERS_10) {
                 if (!this.state.onBottle) {
                     this.setState({
-                        onBottle: bottlePosition
+                        onBottle: bottle
                     })
                 } else {
                     this.setState({
@@ -45,7 +53,6 @@ class Overview extends Component {
                     })
                 }
             }
-            console.log('distance to bottle: ', distance);
         })
     }
 
@@ -73,10 +80,15 @@ class Overview extends Component {
     }
 
 
+    viewBottle() {
+        console.log('view bottle', this.state.onBottle);
+        this.props.history.push(`/bottle/${this.state.onBottle.id}`);
+    }
+
     bottle() {
         if (this.state.onBottle) {
-            return <div className="on-bottle bottle-image">
-                ON BOTTLE
+            return <div className="on-bottle bottle-image"
+            onClick={this.viewBottle}>
             </div>
         }
     }
@@ -100,16 +112,32 @@ class Overview extends Component {
         }
     }
 
+    isCloserThan100Meters(bottle) {
+        const position = {
+            lat: this.state.lat,
+            lng: this.state.lng
+        };
+
+        if (bottle && bottle.position) {
+            const bottlePosition = bottle.position;
+            const distance = getDistanceBetweenInMeters(position, bottlePosition);
+
+            return distance < 100;
+        }
+    }
+
     render() {
         const classes = this.props;
 
-        const {lat, lng, bottlePositions} = this.state;
+        const {lat, lng, bottles} = this.state;
+
+        const nearbyBottles = bottles.filter(this.isCloserThan100Meters);
 
         return (
             <div className="overview">
-                <span className="overview-text">{bottlePositions.length} Bottles nearby!</span>
+                <span className="overview-text">{nearbyBottles.length} Bottles nearby!</span>
                 <div className="map">
-                    <Map lat={lat} lng={lng} zoom={15} bottlePositions={bottlePositions}/>
+                    <Map lat={lat} lng={lng} zoom={16} bottles={nearbyBottles}/>
                 </div>
                 {this.bottle()}
                 {this.leaveButton(classes)}

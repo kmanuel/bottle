@@ -16,16 +16,9 @@ class Map extends Component {
             center: {
                 lat: this.props.lat,
                 lng: this.props.lng
-            }
-        });
-
-        this.props.bottles.map(bottle => {
-            const markerLocation = bottle.position;
-            new google.maps.Marker({
-                position: {lat: markerLocation.lat, lng: markerLocation.lng},
-                map: map,
-                title: 'Hello World!'
-            });
+            },
+            draggable: false,
+            disableDefaultUI: true
         });
 
         this.setState({
@@ -36,6 +29,15 @@ class Map extends Component {
     componentDidUpdate() {
         const {lat, lng} = this.props;
         this.state.gmap.setCenter(new google.maps.LatLng( lat, lng ));
+
+        this.props.bottles.map(bottle => {
+            const markerLocation = bottle.position;
+            new google.maps.Marker({
+                position: {lat: markerLocation.lat, lng: markerLocation.lng},
+                map: this.state.gmap,
+                title: 'Hello World!'
+            });
+        });
     }
 
     render() {

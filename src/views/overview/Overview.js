@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Map from '../../components/map/Map';
 import Button from '@material-ui/core/Button';
 import getDistanceBetweenInMeters from '../../utils/distanceCalculator';
+import * as bottleService from '../../services/bottleService';
 import {withStyles} from '@material-ui/core/styles';
 import './Overview.css';
 
@@ -25,17 +26,17 @@ class Overview extends Component {
         this.state = {
             lat: 0,
             lng: 0,
-            bottles: [
-                {
-                    id: 0,
-                    position: {lat: 48.223973, lng: 16.365172}
-                }, {
-                    id: 1,
-                    position: {lat: 48.223404, lng: 16.367238}
-                }
-            ],
+            bottles: [],
             onBottle: undefined
         };
+
+        this.loadBottles();
+    }
+
+    loadBottles() {
+        bottleService.getBottles()
+            .then(bottles => this.setState({bottles}))
+            .catch(err => console.log('could not fetch bottles', err));
     }
 
     checkDistanceToBottles(coords) {
@@ -44,9 +45,10 @@ class Overview extends Component {
             const distance = getDistanceBetweenInMeters(coords, bottlePosition);
             if (distance < METERS_10) {
                 if (!this.state.onBottle) {
-                    this.setState({
-                        onBottle: bottle
-                    })
+                    // TODO temporary disable this
+                    // this.setState({
+                    //     onBottle: bottle
+                    // })
                 } else {
                     this.setState({
                         onBottle: undefined
@@ -88,7 +90,7 @@ class Overview extends Component {
     bottle() {
         if (this.state.onBottle) {
             return <div className="on-bottle bottle-image"
-            onClick={this.viewBottle}>
+                        onClick={this.viewBottle}>
             </div>
         }
     }
@@ -98,10 +100,29 @@ class Overview extends Component {
             return <Button
                 id="leave-bottle-btn"
                 className={classes.button}
-                variant="contained" color="primary">
+                variant="contained" color="primary"
+                onClick={() => this.dropBottle()}>
                 Leave a bottle
             </Button>
         }
+    }
+
+    dropBottle() {
+        console.log('dropping bottle');
+        const {lat, lng} = this.state;
+
+        const bottlePosition = {
+            lat, lng
+        };
+
+        bottleService.createBottle(bottlePosition)
+            .then(newBottle => {
+                console.log('successfully created new bottle', newBottle);
+                this.loadBottles();
+            })
+            .catch(err => {
+                console.log('error creating new bottle', err);
+            })
     }
 
     positionButton(classes) {

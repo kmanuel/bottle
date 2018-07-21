@@ -33,7 +33,9 @@ class Map extends Component {
     }
 
     componentDidUpdate() {
+        console.log('set center');
         const {lat, lng} = this.props;
+        console.log(`set lat lng to : ${lat} ${lng}`);
         this.state.gmap.setCenter(new google.maps.LatLng( lat, lng ));
     }
 

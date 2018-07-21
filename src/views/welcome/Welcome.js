@@ -38,7 +38,9 @@ class Welcome extends Component {
         const {classes} = this.props;
 
         const loginForm = (this.state.showLoginForm)
-            ? <div className="login-form-holder"><LoginForm /></div>
+            ? <div className="login-form-holder">
+                <LoginForm history={this.props.history}/>
+            </div>
             : '';
 
         const buttons = (!this.state.showLoginForm)

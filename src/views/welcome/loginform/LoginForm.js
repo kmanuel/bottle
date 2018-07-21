@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
@@ -9,6 +8,7 @@ import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import * as accountService from '../../../services/accountService';
 
 const styles = theme => ({
     button: {
@@ -26,6 +26,9 @@ class LoginForm extends Component {
         this.state = {
             showPassword: false
         };
+
+        console.log('loginform props', this.props);
+        this.login = this.login.bind(this);
     }
 
     handleChange = prop => event => {
@@ -36,6 +39,17 @@ class LoginForm extends Component {
         this.setState(state => ({showPassword: !state.showPassword}));
     };
 
+    login = () => {
+        const myProps = this.props;
+        accountService.login('admin', 'admin')
+            .then((auth) => {
+                console.log('logged in as ', auth);
+                myProps.history.push('/overview');
+            })
+            .catch((err) => {
+                console.log('authentication error', err);
+            });
+    };
 
     render() {
         const {classes} = this.props;
@@ -73,13 +87,12 @@ class LoginForm extends Component {
                     />
                 </div>
                 <div className="buttons">
-                    <Link to="/overview">
                         <Button
                             className={'login-form-button ' + classes.button}
-                            variant="contained" color="primary">
+                            variant="contained" color="primary"
+                            onClick={() => this.login()}>>
                             Login
                         </Button>
-                    </Link>
                 </div>
             </div>
         );

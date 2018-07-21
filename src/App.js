@@ -5,7 +5,6 @@ import {
 } from 'react-router-dom'
 import Navbar from './components/navbar/Navbar';
 import Welcome from './views/welcome/Welcome';
-import Login from './views/login/Login';
 import CollectedBottles from './views/collected-bottles/CollectedBottles';
 import DroppedBottles from './views/dropped-bottles/DroppedBottles';
 import BottleDetail from './views/bottledetail/BottleDetail';
@@ -23,7 +22,6 @@ class App extends Component {
                         </div>
                         <div className="content">
                         <Route exact path="/" component={Welcome}/>
-                        <Route path="/login" component={Login}/>
                         <Route path="/overview" component={Overview}/>
                         <Route path="/dropped-bottles" component={DroppedBottles}/>
                         <Route path="/collected-bottles" component={CollectedBottles}/>

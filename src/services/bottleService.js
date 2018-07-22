@@ -13,19 +13,13 @@ const defaultBottles = [
 
 const bottles = JSON.parse(window.localStorage.getItem('bottles')) || defaultBottles;
 
-const saveLocalStorage = () => {
-    window.localStorage.setItem('bottles', JSON.stringify(bottles));
-};
-
-const createBottle = (pos) => {
+const createBottle = (title, body, pos) => {
     const newBottle = {
+        title,
+        body,
         lat: pos.lat,
         lng: pos.lng
     };
-
-    bottles.push(newBottle);
-
-    saveLocalStorage();
 
     return fetch(`${API_URL}/bottles`,
         {
@@ -34,8 +28,6 @@ const createBottle = (pos) => {
         })
         .then((res) => res)
         .catch(err => console.log(err));
-
-
 };
 
 const getBottles = () => {

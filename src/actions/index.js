@@ -11,6 +11,8 @@ const POOL_DATA = {
     ClientId: '36fglpg2fl2mldemfjltokr6qc'
 };
 
+// todo we can use amazon sdk to signout, resignin, authenticate, etc user here
+
 const userPool = new CognitoUserPool(POOL_DATA);
 
 export const loadBottles = () => {
@@ -18,14 +20,6 @@ export const loadBottles = () => {
         type: 'LOAD_BOTTLES',
         payload: bottleService.getBottles()
     };
-};
-
-export const createBottle = (bottlePosition) => {
-    return bottleService.createBottle(bottlePosition)
-        .then(res => {
-            return loadBottles();
-        })
-        .catch(err => console.log(err));
 };
 
 export const login = (username, password, history) => {
@@ -120,5 +114,25 @@ export const confirm = (username, code, history) => {
     return {
         type: 'ACCOUNT_CONFIRMATION',
         payload: confirmPromise
+    };
+};
+
+
+export const createBottle = (title, body, position, history) => {
+    return saveBottleAndLoad(title, body, position, history);
+};
+
+const saveBottleAndLoad = async (title, body, position, history) => {
+    console.log('gonna save new bottle');
+    const res = await bottleService.createBottle(title, body, position);
+    const bottles = await loadBottles();
+    history.push('/overview');
+    return bottles;
+};
+
+export const updatePosition = (position) => {
+    return {
+        type: 'POSITION_UPDATE',
+        payload: {position}
     };
 };

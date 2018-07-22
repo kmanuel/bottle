@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import Map from '../../components/map/Map';
 import Button from '@material-ui/core/Button';
 import getDistanceBetweenInMeters from '../../utils/distanceCalculator';
@@ -7,7 +8,7 @@ import {withStyles} from '@material-ui/core/styles';
 import './Overview.css';
 import * as actions from '../../actions'
 
-import { createBottle } from '../../actions';
+import {createBottle, updatePosition} from '../../actions';
 
 const METERS_10 = 10;
 
@@ -27,8 +28,6 @@ class Overview extends Component {
         this.isCloserThan100Meters = this.isCloserThan100Meters.bind(this);
 
         this.state = {
-            lat: 0,
-            lng: 0,
             onBottle: undefined
         };
 
@@ -58,14 +57,16 @@ class Overview extends Component {
     }
 
     updatePosition(position) {
-        const {latitude, longitude} = position.coords;
+        this.props.dispatch(updatePosition(position));
 
-        this.checkDistanceToBottles({lat: latitude, lng: longitude});
-
-        this.setState({
-            lat: latitude,
-            lng: longitude
-        });
+        // const {latitude, longitude} = position.coords;
+        //
+        // this.checkDistanceToBottles({lat: latitude, lng: longitude});
+        //
+        // this.setState({
+        //     lat: latitude,
+        //     lng: longitude
+        // });
     }
 
     positionError(position) {
@@ -94,25 +95,26 @@ class Overview extends Component {
 
     leaveButton(classes) {
         if (!this.state.onBottle) {
-            return <Button
-                id="leave-bottle-btn"
-                className={classes.button}
-                variant="contained" color="primary"
-                onClick={() => this.leaveBottle()}>
-                Leave a bottle
-            </Button>
+            return <Link to="/create/bottle">
+                <Button
+                    id="leave-bottle-btn"
+                    className={classes.button}
+                    variant="contained" color="primary">
+                    Leave a bottle
+                </Button>
+            </Link>
         }
     }
 
-    leaveBottle() {
-        const {lat, lng} = this.state;
-
-        const bottlePosition = {
-            lat, lng
-        };
-
-        this.props.dispatch(createBottle(bottlePosition));
-    }
+    // leaveBottle() {
+    //     const {lat, lng} = this.state;
+    //
+    //     const bottlePosition = {
+    //         lat, lng
+    //     };
+    //
+    //     this.props.dispatch(createBottle(bottlePosition));
+    // }
 
     positionButton(classes) {
         if (!this.state.onBottle) {
@@ -124,8 +126,8 @@ class Overview extends Component {
 
     isCloserThan100Meters(bottle) {
         const position = {
-            lat: this.state.lat,
-            lng: this.state.lng
+            lat: this.props.lat,
+            lng: this.props.lng
         };
 
         if (bottle) {
@@ -154,7 +156,7 @@ class Overview extends Component {
             <div className="overview">
                 <span className="overview-text">{nearbyBottles.length} Bottles nearby!</span>
                 <div className="map">
-                    <Map lat={lat} lng={lng} zoom={16} bottles={nearbyBottles}/>
+                    <Map lat={this.props.lat} lng={this.props.lng} zoom={16} bottles={nearbyBottles}/>
                 </div>
                 {this.bottle()}
                 {this.leaveButton(classes)}
@@ -165,7 +167,11 @@ class Overview extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {bottles: state.bottles.onMap};
+    return {
+        bottles: state.bottles.onMap,
+        lat: state.position.lat,
+        lng: state.position.lng
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {

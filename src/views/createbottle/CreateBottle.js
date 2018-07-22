@@ -30,7 +30,7 @@ class CreateBottle extends Component {
     onSave() {
         const {title, body} = this.state;
         const {history} = this.props;
-        this.props.dispatch(createBottle(title, body, {lat: 0, lng: 0}, history));
+        this.props.dispatch(createBottle(title, body, this.props.position, history));
     }
 
     render() {
@@ -53,7 +53,7 @@ class CreateBottle extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {};
+    return {position: state.position};
 };
 
 const mapDispatchToProps = (dispatch) => {

@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {
     BrowserRouter as Router,
-    Route
+    Route,
+    Redirect
 } from 'react-router-dom'
+import {connect} from 'react-redux';
 import Navbar from './containers/navbar/Navbar';
 import Welcome from './views/welcome/Welcome';
 import CollectedBottles from './views/collected-bottles/CollectedBottles';
@@ -14,7 +16,13 @@ import SignupConfirm from './views/signupconfirm/SignupConfirm';
 import './App.css';
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
+        const {isAuthenticated} = this.props;
+        console.log('bam authenticated', isAuthenticated);
         return (
             <div className="App">
                 <Router>
@@ -23,13 +31,13 @@ class App extends Component {
                             <Navbar className="nav"/>
                         </div>
                         <div className="content">
-                        <Route exact path="/" component={Welcome}/>
-                        <Route path="/overview" component={Overview}/>
-                        <Route path="/dropped-bottles" component={DroppedBottles}/>
-                        <Route path="/collected-bottles" component={CollectedBottles}/>
-                        <Route path="/create/bottle" component={CreateBottle}/>
-                        <Route path="/bottle/:id" component={BottleDetail}/>
-                        <Route path="/signup-confirm" component={SignupConfirm}/>
+                            <Route exact path="/" component={Welcome}/>
+                            <PrivateRoute authenticated={isAuthenticated} path="/overview" component={Overview}/>
+                            <PrivateRoute authenticated={isAuthenticated} path="/dropped-bottles" component={DroppedBottles}/>
+                            <PrivateRoute authenticated={isAuthenticated} path="/collected-bottles" component={CollectedBottles}/>
+                            <PrivateRoute authenticated={isAuthenticated} path="/create/bottle" component={CreateBottle}/>
+                            <PrivateRoute authenticated={isAuthenticated} path="/bottle/:id" component={BottleDetail}/>
+                            <Route path="/signup-confirm" component={SignupConfirm}/>
                         </div>
                     </div>
                 </Router>
@@ -38,4 +46,17 @@ class App extends Component {
     }
 }
 
-export default App;
+const PrivateRoute = ({component, authenticated, ...rest}) => {
+    if (authenticated) {
+        return <Route {...rest} component={component} />;
+    } else {
+        return <Redirect to='/'/>;
+    }
+};
+
+const mapStateToProps = (state) => {
+    console.log('app auth state to props', state);
+    return {isAuthenticated: state.auth && state.auth.user}
+};
+
+export default connect(mapStateToProps, undefined)(App);

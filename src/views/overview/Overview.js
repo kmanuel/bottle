@@ -8,7 +8,7 @@ import {withStyles} from '@material-ui/core/styles';
 import './Overview.css';
 import * as actions from '../../actions'
 
-import {createBottle, updatePosition} from '../../actions';
+import {updatePosition} from '../../actions';
 
 const METERS_10 = 10;
 
@@ -34,19 +34,18 @@ class Overview extends Component {
         this.props.dispatch(actions.loadBottles());
     }
 
-    checkDistanceToBottles(coords) {
+    checkDistanceToBottles() {
         this.props.bottles.map(bottle => {
             const bottlePosition = {
                 lat: bottle.lat,
                 lng: bottle.lng
             };
-            const distance = getDistanceBetweenInMeters(coords, bottlePosition);
+            const distance = getDistanceBetweenInMeters(this.props.position, bottlePosition);
             if (distance < METERS_10) {
                 if (!this.state.onBottle) {
-                    // TODO temporary disable this
-                    // this.setState({
-                    //     onBottle: bottle
-                    // })
+                    this.setState({
+                        onBottle: bottle
+                    })
                 } else {
                     this.setState({
                         onBottle: undefined
@@ -58,15 +57,6 @@ class Overview extends Component {
 
     updatePosition(position) {
         this.props.dispatch(updatePosition(position));
-
-        // const {latitude, longitude} = position.coords;
-        //
-        // this.checkDistanceToBottles({lat: latitude, lng: longitude});
-        //
-        // this.setState({
-        //     lat: latitude,
-        //     lng: longitude
-        // });
     }
 
     positionError(position) {
@@ -106,17 +96,7 @@ class Overview extends Component {
         }
     }
 
-    // leaveBottle() {
-    //     const {lat, lng} = this.state;
-    //
-    //     const bottlePosition = {
-    //         lat, lng
-    //     };
-    //
-    //     this.props.dispatch(createBottle(bottlePosition));
-    // }
-
-    positionButton(classes) {
+    positionButton() {
         if (!this.state.onBottle) {
             return <Button onClick={this.getPosition}>
                 Position
@@ -143,8 +123,6 @@ class Overview extends Component {
 
     render() {
         const classes = this.props;
-
-        const {lat, lng} = this.state;
         const {bottles} = this.props;
 
         let nearbyBottles = [];

@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import LoginForm from './loginform/LoginForm';
+import SignupForm from './signupform/SignupForm';
 
-import { connect } from 'react-redux';
-import { login } from '../../actions';
+import {connect} from 'react-redux';
+import {login, signup} from '../../actions';
 
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
@@ -22,10 +23,12 @@ class Welcome extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showLoginForm: false
+            showLoginForm: false,
+            showSignupForm: false
         };
 
         this.toggleLogin = this.toggleLogin.bind(this);
+        this.toggleSignup = this.toggleSignup.bind(this);
     }
 
     toggleLogin() {
@@ -36,21 +39,37 @@ class Welcome extends Component {
         });
     }
 
+    toggleSignup() {
+        this.setState((prevState) => {
+            return {
+                showSignupForm: !prevState.showSignupForm
+            }
+        });
+    }
+
     render() {
         const {classes} = this.props;
 
         const loginForm = (this.state.showLoginForm)
             ? <div className="login-form-holder">
-                <LoginForm history={this.props.history} onLogin={(username, password) => this.props.dispatch(login(username, password, this.props.history))} />
+                <LoginForm history={this.props.history}
+                           onLogin={(username, password) => this.props.dispatch(login(username, password, this.props.history))} />
             </div>
             : '';
 
-        const buttons = (!this.state.showLoginForm)
+        const signupForm = (this.state.showSignupForm)
+            ? <div className="signup-form-holder">
+                <SignupForm history={this.props.history}
+                            onSignup={(username, email, password) => this.props.dispatch(signup(username, email, password, this.props.history))} />
+            </div>
+            : '';
+
+        const buttons = (!this.state.showLoginForm && !this.state.showSignupForm)
             ? <div className="welcome-buttons">
                 <Button variant="contained" color="primary" className={classes.button} onClick={this.toggleLogin}>
                     Login
                 </Button>
-                <Button variant="contained" color="primary" className={classes.button}>
+                <Button variant="contained" color="primary" className={classes.button} onClick={this.toggleSignup}>
                     Signup
                 </Button>
             </div>
@@ -62,6 +81,7 @@ class Welcome extends Component {
                 <div className="bottle-image welcome-image"></div>
 
                 {loginForm}
+                {signupForm}
 
                 {buttons}
 

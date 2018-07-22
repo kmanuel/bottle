@@ -1,0 +1,9 @@
+.signup-confirm {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-confirm > * {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

@@ -27,7 +27,6 @@ class LoginForm extends Component {
             showPassword: false
         };
 
-        console.log('loginform props', this.props);
         this.login = this.login.bind(this);
     }
 
@@ -43,7 +42,6 @@ class LoginForm extends Component {
         const myProps = this.props;
         accountService.login('admin', 'admin')
             .then((auth) => {
-                console.log('logged in as ', auth);
                 myProps.history.push('/overview');
             })
             .catch((err) => {

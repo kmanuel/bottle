@@ -42,9 +42,7 @@ const getBottles = () => {
     return fetch(`${API_URL}/bottles`)
         .then(res => res.json())
         .then(data => {
-            console.log('data received: ', data);
             return data.Items.map(bottleDto => {
-                console.log('mapping bottleDto', bottleDto);
                 return {
                     id: bottleDto.BottleId,
                     lat: parseFloat(bottleDto.lat.N),

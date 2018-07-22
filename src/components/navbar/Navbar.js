@@ -38,7 +38,6 @@ class Navbar extends Component {
     }
 
     handleDrawerOpen = () => {
-        console.log('drawer open');
         this.setState({open: true});
     };
 

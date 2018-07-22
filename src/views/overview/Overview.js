@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import Map from '../../components/map/Map';
 import Button from '@material-ui/core/Button';
 import getDistanceBetweenInMeters from '../../utils/distanceCalculator';
-import * as bottleService from '../../services/bottleService';
 import {withStyles} from '@material-ui/core/styles';
 import './Overview.css';
+import * as actions from '../../actions'
+
+import { createBottle } from '../../actions';
 
 const METERS_10 = 10;
 
@@ -26,24 +29,14 @@ class Overview extends Component {
         this.state = {
             lat: 0,
             lng: 0,
-            bottles: [],
             onBottle: undefined
         };
 
-        this.loadBottles();
-    }
-
-    loadBottles() {
-        bottleService.getBottles()
-            .then(bottles => {
-                console.log('received bottles', bottles);
-                this.setState({bottles})
-            })
-            .catch(err => console.log('could not fetch bottles', err));
+        this.props.dispatch(actions.loadBottles());
     }
 
     checkDistanceToBottles(coords) {
-        this.state.bottles.map(bottle => {
+        this.props.bottles.map(bottle => {
             const bottlePosition = {
                 lat: bottle.lat,
                 lng: bottle.lng
@@ -87,9 +80,7 @@ class Overview extends Component {
         }
     }
 
-
     viewBottle() {
-        console.log('view bottle', this.state.onBottle);
         this.props.history.push(`/bottle/${this.state.onBottle.id}`);
     }
 
@@ -107,28 +98,20 @@ class Overview extends Component {
                 id="leave-bottle-btn"
                 className={classes.button}
                 variant="contained" color="primary"
-                onClick={() => this.dropBottle()}>
+                onClick={() => this.leaveBottle()}>
                 Leave a bottle
             </Button>
         }
     }
 
-    dropBottle() {
-        console.log('dropping bottle');
+    leaveBottle() {
         const {lat, lng} = this.state;
 
         const bottlePosition = {
             lat, lng
         };
 
-        bottleService.createBottle(bottlePosition)
-            .then(newBottle => {
-                console.log('successfully created new bottle', newBottle);
-                this.loadBottles();
-            })
-            .catch(err => {
-                console.log('error creating new bottle', err);
-            })
+        this.props.dispatch(createBottle(bottlePosition));
     }
 
     positionButton(classes) {
@@ -145,7 +128,6 @@ class Overview extends Component {
             lng: this.state.lng
         };
 
-
         if (bottle) {
             const bottlePosition = {
                 lat: bottle.lat,
@@ -160,7 +142,8 @@ class Overview extends Component {
     render() {
         const classes = this.props;
 
-        const {lat, lng, bottles} = this.state;
+        const {lat, lng} = this.state;
+        const {bottles} = this.props;
 
         let nearbyBottles = [];
         if (bottles) {
@@ -181,4 +164,12 @@ class Overview extends Component {
     }
 }
 
-export default withStyles(styles)(Overview);
+const mapStateToProps = (state) => {
+    return {bottles: state.bottles.onMap};
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {dispatch}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Overview));

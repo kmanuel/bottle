@@ -3,14 +3,19 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
 const BottleInfo = (props) => {
-    return (
-        <Card>
-            <CardContent>
-                <h1>Hello</h1>
-                <p>Best app ever! :)</p>
-            </CardContent>
-        </Card>
-    )
+
+    if (props.bottle) {
+        return (
+            <Card>
+                <CardContent>
+                    <h1>{props.bottle.title}</h1>
+                    <p>{props.bottle.body}</p>
+                </CardContent>
+            </Card>
+        )
+    } else {
+        return <div>Unknown bottle</div>
+    }
 };
 
 export default BottleInfo;

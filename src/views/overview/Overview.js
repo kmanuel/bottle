@@ -121,6 +121,10 @@ class Overview extends Component {
         }
     }
 
+    onBottleClick(bottle) {
+        this.props.history.push(`/bottle/${bottle.id}`);
+    }
+
     render() {
         const classes = this.props;
         const {bottles} = this.props;
@@ -134,7 +138,8 @@ class Overview extends Component {
             <div className="overview">
                 <span className="overview-text">{nearbyBottles.length} Bottles nearby!</span>
                 <div className="map">
-                    <Map lat={this.props.lat} lng={this.props.lng} zoom={16} bottles={nearbyBottles}/>
+                    <Map lat={this.props.lat} lng={this.props.lng} zoom={16} bottles={nearbyBottles}
+                         onBottleClick={(bottle) => this.onBottleClick(bottle)}/>
                 </div>
                 {this.bottle()}
                 {this.leaveButton(classes)}
@@ -146,7 +151,7 @@ class Overview extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        bottles: state.bottles.onMap,
+        bottles: state.bottles.all,
         lat: state.position.lat,
         lng: state.position.lng
     };

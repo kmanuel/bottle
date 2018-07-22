@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import {createBottle} from '../../actions';
+import './CreateBottle.css';
 
 class CreateBottle extends Component {
     constructor(props) {
@@ -34,20 +37,34 @@ class CreateBottle extends Component {
     }
 
     render() {
-        return <div>
+        return <div className="create-bottle">
             <h1>New Bottle</h1>
-            title
-            <input
+            <TextField
+                id="title"
+                label="Title"
                 value={this.state.title}
                 onChange={this.onTitleChange}
-                type="text"/>
-            body
-            <input
+                margin="normal"
+            />
+            <TextField
+                id="body"
+                label="Body"
                 value={this.state.body}
                 onChange={this.onBodyChange}
-                type="text"/>
-            <button>Cancel</button>
-            <button onClick={this.onSave}>Save</button>
+                margin="normal"
+            />
+            <div className="btn-group-horizontal">
+                <Button
+                    variant="contained" color="primary"
+                    onClick={this.onSave}>
+                    Save
+                </Button>
+                <Button
+                    variant="contained" color="primary"
+                    onClick={() => this.props.history.goBack()}>
+                    Cancel
+                </Button>
+            </div>
         </div>
     };
 }

@@ -23,7 +23,6 @@ class SignupConfirm extends Component {
     }
 
     changeCode(evt) {
-        console.log('changecode', evt);
         this.setState({
             code: evt.target.value
         });

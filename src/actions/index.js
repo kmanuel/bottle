@@ -91,8 +91,6 @@ export const logout = (history) => {
 };
 
 export const confirm = (username, code, history) => {
-    console.log('confirm action', {username, code});
-
     const userData = {
         Username: username,
         Pool: userPool
@@ -123,7 +121,6 @@ export const createBottle = (title, body, position, history) => {
 };
 
 const saveBottleAndLoad = async (title, body, position, history) => {
-    console.log('gonna save new bottle');
     const res = await bottleService.createBottle(title, body, position);
     const bottles = await loadBottles();
     history.push('/overview');

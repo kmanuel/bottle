@@ -32,16 +32,7 @@ const createBottle = (title, body, pos) => {
 
 const getBottles = () => {
     return fetch(`${API_URL}/bottles`)
-        .then(res => res.json())
-        .then(data => {
-            return data.Items.map(bottleDto => {
-                return {
-                    id: bottleDto.BottleId,
-                    lat: parseFloat(bottleDto.lat.N),
-                    lng: parseFloat(bottleDto.lng.N)
-                }
-            })
-        });
+        .then(res => res.json());
 };
 
 export {createBottle, getBottles};

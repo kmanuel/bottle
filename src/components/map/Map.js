@@ -27,7 +27,7 @@ class Map extends Component {
     }
 
     componentDidUpdate() {
-        const {lat, lng} = this.props;
+        const {lat, lng, onBottleClick} = this.props;
         this.state.gmap.setCenter(new google.maps.LatLng( lat, lng ));
 
         this.props.bottles.map(bottle => {
@@ -35,10 +35,16 @@ class Map extends Component {
                 lat: bottle.lat,
                 lng: bottle.lng
             };
-            new google.maps.Marker({
+            const marker = new google.maps.Marker({
                 position: {lat: markerLocation.lat, lng: markerLocation.lng},
                 map: this.state.gmap,
                 title: 'Hello World!'
+            });
+
+            google.maps.event.addListener(marker, 'click', function() {
+                onBottleClick(bottle);
+                // console.log('marker glick', bottle);
+                // this.props.history.push(`/bottle/${bottle.id}`);
             });
         });
     }

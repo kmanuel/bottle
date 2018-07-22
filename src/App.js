@@ -22,7 +22,6 @@ class App extends Component {
 
     render() {
         const {isAuthenticated} = this.props;
-        console.log('bam authenticated', isAuthenticated);
         return (
             <div className="App">
                 <Router>
@@ -55,7 +54,6 @@ const PrivateRoute = ({component, authenticated, ...rest}) => {
 };
 
 const mapStateToProps = (state) => {
-    console.log('app auth state to props', state);
     return {isAuthenticated: state.auth && state.auth.user}
 };
 

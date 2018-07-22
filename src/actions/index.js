@@ -15,3 +15,20 @@ export const createBottle = (bottlePosition) => {
         .catch(err => console.log(err));
 };
 
+export const login = (username, password, history) => {
+    history.push('/overview');
+    return {
+        type: 'LOGIN',
+        payload: {
+            username,
+            password
+        }
+    };
+};
+
+export const logout = (history) => {
+    history.push('/');
+    return {
+        type: 'LOGOUT'
+    };
+};

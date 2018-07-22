@@ -8,7 +8,6 @@ import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import * as accountService from '../../../services/accountService';
 
 const styles = theme => ({
     button: {
@@ -24,10 +23,12 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showPassword: false
+            showPassword: false,
+            username: '',
+            password: ''
         };
 
-        this.login = this.login.bind(this);
+        this.onLogin = this.onLogin.bind(this);
     }
 
     handleChange = prop => event => {
@@ -38,15 +39,8 @@ class LoginForm extends Component {
         this.setState(state => ({showPassword: !state.showPassword}));
     };
 
-    login = () => {
-        const myProps = this.props;
-        accountService.login('admin', 'admin')
-            .then((auth) => {
-                myProps.history.push('/overview');
-            })
-            .catch((err) => {
-                console.log('authentication error', err);
-            });
+    onLogin = () => {
+        this.props.onLogin(this.state.username, this.state.password);
     };
 
     render() {
@@ -60,6 +54,8 @@ class LoginForm extends Component {
                         InputLabelProps={{
                             shrink: true,
                         }}
+                        value={this.state.username}
+                        onChange={this.handleChange('username')}
                         placeholder="Username"
                         fullWidth
                         margin="normal"
@@ -88,7 +84,7 @@ class LoginForm extends Component {
                         <Button
                             className={'login-form-button ' + classes.button}
                             variant="contained" color="primary"
-                            onClick={() => this.login()}>>
+                            onClick={this.onLogin}>>
                             Login
                         </Button>
                 </div>

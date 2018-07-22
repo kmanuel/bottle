@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import LoginForm from './loginform/LoginForm';
 
-import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { login } from '../../actions';
+
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles';
@@ -39,7 +41,7 @@ class Welcome extends Component {
 
         const loginForm = (this.state.showLoginForm)
             ? <div className="login-form-holder">
-                <LoginForm history={this.props.history}/>
+                <LoginForm history={this.props.history} onLogin={(username, password) => this.props.dispatch(login(username, password, this.props.history))} />
             </div>
             : '';
 
@@ -72,4 +74,12 @@ Welcome.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Welcome);
+const mapStateToProps = (state) => {
+    return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {dispatch};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Welcome));

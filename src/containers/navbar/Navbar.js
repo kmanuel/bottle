@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import { logout } from '../../actions';
 
 import PropTypes from 'prop-types';
 import Drawer from '@material-ui/core/Drawer';
@@ -46,6 +49,9 @@ class Navbar extends Component {
     };
 
     render() {
+
+        const authenticated = (this.props.auth.user) ? true : false;
+
         const {classes} = this.props;
         const drawer = (
             <Drawer
@@ -80,29 +86,50 @@ class Navbar extends Component {
             </Drawer>
         );
 
-        return (
-            <div className={classes.root}>
-                <AppBar position="static">
-                    <Toolbar>
-                        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu"
-                                    onClick={this.handleDrawerOpen}>
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="title" color="inherit" className={classes.flex}>
-                            Bottler#1
-                        </Typography>
-                        <NavbarAccountMenu />
-                    </Toolbar>
-                </AppBar>
-                {drawer}
-            </div>
-        );
+        const auth = this.props.auth;
+
+        if (authenticated) {
+            return (
+                <div className={classes.root}>
+                    <AppBar position="static">
+                        <Toolbar>
+                            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu"
+                                        onClick={this.handleDrawerOpen}>
+                                <MenuIcon />
+                            </IconButton>
+                            <Typography variant="title" color="inherit" className={classes.flex}>
+                                {auth.user.username}
+                            </Typography>
+                            <NavbarAccountMenu history={this.props.history} onLogout={() => this.props.dispatch(logout(this.props.history))}/>
+                        </Toolbar>
+                    </AppBar>
+                    {drawer}
+                </div>
+            );
+        } else {
+            return (
+                <div className={classes.root}>
+                    <AppBar position="static">
+                        <Toolbar>
+                        </Toolbar>
+                    </AppBar>
+                </div>
+            );
+        }
     }
 }
-
 
 Navbar.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Navbar);
+const mapStateToProps = (state) => {
+    const {auth} = state;
+    return {auth};
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {dispatch};
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Navbar)));

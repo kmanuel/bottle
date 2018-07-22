@@ -23,6 +23,11 @@ class NavbarAccountMenu extends Component {
         this.setState({anchorEl: null});
     };
 
+    handleLogout = () => {
+        this.handleClose();
+        this.props.onLogout();
+    };
+
     render() {
         const open = Boolean(this.state.anchorEl);
 
@@ -55,10 +60,8 @@ class NavbarAccountMenu extends Component {
                             Settings
                         </Link>
                     </MenuItem>
-                    <MenuItem onClick={this.handleClose}>
-                        <Link to="/">
+                    <MenuItem onClick={() => this.handleLogout()}>
                             Logout
-                        </Link>
                     </MenuItem>
                 </Menu>
             </div>

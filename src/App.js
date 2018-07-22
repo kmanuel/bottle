@@ -24,7 +24,7 @@ class App extends Component {
         const {isAuthenticated} = this.props;
         return (
             <div className="App">
-                <Router>
+                <Router basename={'/bottle'}>
                     <div className="main">
                         <div className="nav">
                             <Navbar className="nav"/>

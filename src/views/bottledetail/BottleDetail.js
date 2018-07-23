@@ -9,7 +9,7 @@ import { collectBottle } from '../../actions';
 const BottleDetail = (props) => {
 
     const onTakeBottle = () => {
-        props.dispatch(collectBottle(props.bottle));
+        props.collectBottle(props.bottle);
     };
 
     const backButton = <Button
@@ -48,8 +48,4 @@ const mapStateToProps = (state, prevProps) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(BottleDetail);
+export default connect(mapStateToProps, {collectBottle})(BottleDetail);

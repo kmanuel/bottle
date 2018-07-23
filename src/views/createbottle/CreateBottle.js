@@ -33,7 +33,7 @@ class CreateBottle extends Component {
     onSave() {
         const {title, body} = this.state;
         const {history} = this.props;
-        this.props.dispatch(createBottle(title, body, this.props.position, this.props.username, history));
+        this.props.createBottle(title, body, this.props.position, this.props.username, history);
     }
 
     render() {
@@ -74,8 +74,4 @@ const mapStateToProps = (state) => {
     return {position: state.position, username: state.auth.user.username};
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateBottle);
+export default connect(mapStateToProps, {createBottle})(CreateBottle);

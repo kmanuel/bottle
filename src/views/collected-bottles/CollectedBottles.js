@@ -6,7 +6,7 @@ import {loadBottles} from '../../actions';
 class CollectedBottles extends Component {
     constructor(props) {
         super(props);
-        props.dispatch(loadBottles());
+        props.loadBottles();
     }
 
     render() {
@@ -23,8 +23,4 @@ const mapStateToProps = state => ({
     bottles: state.bottles.collectedBottles
 });
 
-const mapDispatchToProps = dispatch => ({
-    dispatch
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CollectedBottles);
+export default connect(mapStateToProps, {loadBottles})(CollectedBottles);

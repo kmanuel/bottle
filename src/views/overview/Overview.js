@@ -6,9 +6,7 @@ import Button from '@material-ui/core/Button';
 import getDistanceBetweenInMeters from '../../utils/distanceCalculator';
 import {withStyles} from '@material-ui/core/styles';
 import './Overview.css';
-import * as actions from '../../actions'
-
-import {updatePosition} from '../../actions';
+import {updatePosition, loadBottles} from '../../actions';
 
 const METERS_10 = 10;
 
@@ -31,7 +29,7 @@ class Overview extends Component {
             onBottle: undefined
         };
 
-        this.props.dispatch(actions.loadBottles());
+        this.props.loadBottles();
     }
 
     checkDistanceToBottles() {
@@ -56,7 +54,7 @@ class Overview extends Component {
     }
 
     updatePosition(position) {
-        this.props.dispatch(updatePosition(position));
+        this.props.updatePosition(position);
     }
 
     positionError(position) {
@@ -157,8 +155,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch}
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Overview));
+export default connect(mapStateToProps, {loadBottles, updatePosition})(withStyles(styles)(Overview));

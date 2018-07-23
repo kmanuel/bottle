@@ -30,7 +30,7 @@ class SignupConfirm extends Component {
 
     onConfirm() {
         const {username, code} = this.state;
-        this.props.dispatch(confirm(username, code, this.props.history));
+        this.props.confirm(username, code, this.props.history);
     }
 
     render() {
@@ -47,12 +47,4 @@ class SignupConfirm extends Component {
 
 }
 
-const mapStateToProps = (state) => {
-    return {};
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignupConfirm);
+export default connect(() => {}, {confirm})(SignupConfirm);

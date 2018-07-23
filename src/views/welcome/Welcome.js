@@ -53,14 +53,14 @@ class Welcome extends Component {
         const loginForm = (this.state.showLoginForm)
             ? <div className="login-form-holder">
                 <LoginForm history={this.props.history}
-                           onLogin={(username, password) => this.props.dispatch(login(username, password, this.props.history))} />
+                           onLogin={(username, password) => this.props.login(username, password, this.props.history)} />
             </div>
             : '';
 
         const signupForm = (this.state.showSignupForm)
             ? <div className="signup-form-holder">
                 <SignupForm history={this.props.history}
-                            onSignup={(username, email, password) => this.props.dispatch(signup(username, email, password, this.props.history))} />
+                            onSignup={(username, email, password) => this.props.signup(username, email, password, this.props.history)} />
             </div>
             : '';
 
@@ -84,7 +84,6 @@ class Welcome extends Component {
                 {signupForm}
 
                 {buttons}
-
             </div>
         )
     }
@@ -94,12 +93,4 @@ Welcome.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => {
-    return {};
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {dispatch};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Welcome));
+export default connect(() => {}, {login, signup})(withStyles(styles)(Welcome));

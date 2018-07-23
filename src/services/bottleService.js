@@ -13,12 +13,13 @@ const defaultBottles = [
 
 const bottles = JSON.parse(window.localStorage.getItem('bottles')) || defaultBottles;
 
-const createBottle = (title, body, pos) => {
+const createBottle = (title, body, pos, author) => {
     const newBottle = {
         title,
         body,
         lat: pos.lat,
-        lng: pos.lng
+        lng: pos.lng,
+        author
     };
 
     return fetch(`${API_URL}/bottles`,

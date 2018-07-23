@@ -33,7 +33,7 @@ class CreateBottle extends Component {
     onSave() {
         const {title, body} = this.state;
         const {history} = this.props;
-        this.props.dispatch(createBottle(title, body, this.props.position, history));
+        this.props.dispatch(createBottle(title, body, this.props.position, this.props.username, history));
     }
 
     render() {
@@ -70,7 +70,8 @@ class CreateBottle extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {position: state.position};
+    console.log(state.auth);
+    return {position: state.position, username: state.auth.user.username};
 };
 
 const mapDispatchToProps = (dispatch) => {

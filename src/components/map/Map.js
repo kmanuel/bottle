@@ -38,7 +38,7 @@ class Map extends Component {
             const marker = new google.maps.Marker({
                 position: {lat: markerLocation.lat, lng: markerLocation.lng},
                 map: this.state.gmap,
-                title: 'Hello World!'
+                title: 'Hello World!',
             });
 
             google.maps.event.addListener(marker, 'click', function() {

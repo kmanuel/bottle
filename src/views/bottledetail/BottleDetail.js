@@ -3,9 +3,14 @@ import { connect } from 'react-redux';
 import BottleInfo from '../../components/bottleinfo/Bottleinfo';
 import Button from '@material-ui/core/Button';
 import './BottleDetail.css';
+import { collectBottle } from '../../actions';
 
 
 const BottleDetail = (props) => {
+
+    const onTakeBottle = () => {
+        props.dispatch(collectBottle(props.bottle));
+    };
 
     const backButton = <Button
         variant="contained" color="primary"
@@ -20,8 +25,9 @@ const BottleDetail = (props) => {
             <div>
                 <BottleInfo bottle={props.bottle}/>
                 <div className="detail-buttons">
-                    <Button
-                        variant="contained" color="primary">
+                    <Button className="take-button"
+                        variant="contained" color="primary"
+                        onClick={onTakeBottle}>
                         Take
                     </Button>
                     {backButton}

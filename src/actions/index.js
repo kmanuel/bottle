@@ -116,12 +116,12 @@ export const confirm = (username, code, history) => {
 };
 
 
-export const createBottle = (title, body, position, history) => {
-    return saveBottleAndLoad(title, body, position, history);
+export const createBottle = (title, body, position, author, history) => {
+    return saveBottleAndLoad(title, body, position, author, history);
 };
 
-const saveBottleAndLoad = async (title, body, position, history) => {
-    const res = await bottleService.createBottle(title, body, position);
+const saveBottleAndLoad = async (title, body, position, author, history) => {
+    const res = await bottleService.createBottle(title, body, position, author);
     const bottles = await loadBottles();
     history.push('/overview');
     return bottles;
@@ -131,5 +131,14 @@ export const updatePosition = (position) => {
     return {
         type: 'POSITION_UPDATE',
         payload: {position}
+    };
+};
+
+export const collectBottle = (bottleId) => {
+    console.log('collect bottle: ', bottleId);
+
+    return {
+        type: 'BOTTLE_COLLECT',
+        payload: bottleId
     };
 };

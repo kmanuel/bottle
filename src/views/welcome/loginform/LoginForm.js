@@ -84,7 +84,7 @@ class LoginForm extends Component {
                         <Button
                             className={'login-form-button ' + classes.button}
                             variant="contained" color="primary"
-                            onClick={this.onLogin}>>
+                            onClick={this.onLogin}>
                             Login
                         </Button>
                 </div>

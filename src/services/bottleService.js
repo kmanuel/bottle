@@ -1,19 +1,6 @@
 const API_URL = 'https://j4mfxo6i2m.execute-api.eu-central-1.amazonaws.com/dev';
 
-
-const defaultBottles = [
-    {
-        id: 0,
-        position: {lat: 48.223973, lng: 16.365172}
-    }, {
-        id: 1,
-        position: {lat: 48.223404, lng: 16.367238}
-    }
-];
-
-const bottles = JSON.parse(window.localStorage.getItem('bottles')) || defaultBottles;
-
-const createBottle = (title, body, pos, author) => {
+const saveBottle = (title, body, pos, author) => {
     const newBottle = {
         title,
         body,
@@ -36,4 +23,4 @@ const getBottles = () => {
         .then(res => res.json());
 };
 
-export {createBottle, getBottles};
+export {saveBottle, getBottles};

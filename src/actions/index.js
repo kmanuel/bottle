@@ -11,9 +11,29 @@ const POOL_DATA = {
     ClientId: '36fglpg2fl2mldemfjltokr6qc'
 };
 
-// todo we can use amazon sdk to signout, resignin, authenticate, etc user here
-
 const userPool = new CognitoUserPool(POOL_DATA);
+
+const getAutoLoginSession = () => {
+    var cognitoUser = userPool.getCurrentUser();
+
+    return new Promise((resolve, reject) => {
+        if (cognitoUser != null) {
+            cognitoUser.getSession(function(err, session) {
+                if (err) {
+                    reject(err);
+                }
+                resolve(session);
+            });
+        }
+    });
+};
+
+export const autoLogin = () => {
+    return {
+        type: 'AUTO_LOGIN',
+        payload: getAutoLoginSession()
+    }
+};
 
 export const loadBottles = () => {
     return {
@@ -84,6 +104,10 @@ export const signup = (username, email, password, history) => {
 };
 
 export const logout = (history) => {
+    var cognitoUser = userPool.getCurrentUser();
+    if (cognitoUser != null) {
+        cognitoUser.signOut();
+    }
     history.push('/');
     return {
         type: 'LOGOUT'
@@ -121,7 +145,7 @@ export const createBottle = (title, body, position, author, history) => {
 };
 
 const saveBottleAndLoad = async (title, body, position, author, history) => {
-    const res = await bottleService.createBottle(title, body, position, author);
+    const res = await bottleService.saveBottle(title, body, position, author);
     const bottles = await loadBottles();
     history.push('/overview');
     return bottles;
@@ -135,8 +159,6 @@ export const updatePosition = (position) => {
 };
 
 export const collectBottle = (bottleId) => {
-    console.log('collect bottle: ', bottleId);
-
     return {
         type: 'BOTTLE_COLLECT',
         payload: bottleId

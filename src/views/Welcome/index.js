@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import {connect} from 'react-redux';
-import {login, signup} from '../../actions';
+import {login, signup, autoLogin} from '../../actions';
 
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
@@ -29,6 +29,8 @@ class Welcome extends Component {
             showSignupForm: false
         };
 
+        props.autoLogin();
+
         this.toggleLogin = this.toggleLogin.bind(this);
         this.toggleSignup = this.toggleSignup.bind(this);
     }
@@ -55,14 +57,14 @@ class Welcome extends Component {
         const loginForm = (this.state.showLoginForm)
             ? <div className="login-form-holder">
                 <LoginForm history={this.props.history}
-                           onLogin={(username, password) => this.props.login(username, password, this.props.history)} />
+                           onLogin={(username, password) => this.props.login(username, password, this.props.history)}/>
             </div>
             : '';
 
         const signupForm = (this.state.showSignupForm)
             ? <div className="signup-form-holder">
                 <SignupForm history={this.props.history}
-                            onSignup={(username, email, password) => this.props.signup(username, email, password, this.props.history)} />
+                            onSignup={(username, email, password) => this.props.signup(username, email, password, this.props.history)}/>
             </div>
             : '';
 
@@ -77,6 +79,12 @@ class Welcome extends Component {
             </div>
             : '';
 
+        const {auth} = this.props;
+        const loggedIn = auth && (auth.user !== undefined);
+
+        if (loggedIn) {
+            this.props.history.push('/overview');
+        }
 
         return (
             <div className="welcome">
@@ -95,4 +103,9 @@ Welcome.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default connect(() => {}, {login, signup})(withStyles(styles)(Welcome));
+const mapStateToProps = ({auth}) => {
+    console.log(auth);
+    return {auth};
+};
+
+export default connect(mapStateToProps, {login, signup, autoLogin})(withStyles(styles)(Welcome));

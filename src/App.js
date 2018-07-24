@@ -46,7 +46,7 @@ class App extends Component {
 }
 
 const PrivateRoute = ({component, authenticated, ...rest}) => {
-    if (true) {
+    if (authenticated) {
         return <Route {...rest} component={component} />;
     } else {
         return <Redirect to='/'/>;

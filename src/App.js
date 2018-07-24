@@ -5,14 +5,14 @@ import {
     Redirect
 } from 'react-router-dom'
 import {connect} from 'react-redux';
-import Navbar from './containers/navbar/Navbar';
-import Welcome from './views/welcome/Welcome';
-import CollectedBottles from './views/collected-bottles/CollectedBottles';
-import DroppedBottles from './views/dropped-bottles/DroppedBottles';
-import BottleDetail from './views/bottledetail/BottleDetail';
-import CreateBottle from './views/createbottle/CreateBottle';
-import Overview from './views/overview/Overview';
-import SignupConfirm from './views/signupconfirm/SignupConfirm';
+import Navbar from './containers/Navbar/index';
+import Welcome from './views/Welcome';
+import CollectedBottles from './views/CollectedBottles';
+import DroppedBottles from './views/DroppedBottles';
+import BottleDetail from './views/BottleDetail';
+import CreateBottle from './views/CreateBottle';
+import Overview from './views/Overview';
+import SignupConfirm from './views/SignupConfirm';
 import './App.css';
 
 class App extends Component {

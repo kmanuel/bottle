@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import Map from '../../components/map/Map';
+import Map from '../../components/Map';
 import Button from '@material-ui/core/Button';
 import getDistanceBetweenInMeters from '../../utils/distanceCalculator';
 import {withStyles} from '@material-ui/core/styles';

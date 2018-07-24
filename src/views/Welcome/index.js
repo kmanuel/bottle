@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import LoginForm from './loginform/LoginForm';
-import SignupForm from './signupform/SignupForm';
 
 import {connect} from 'react-redux';
 import {login, signup} from '../../actions';
@@ -8,6 +6,10 @@ import {login, signup} from '../../actions';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles';
+
+import LoginForm from './LoginForm';
+import SignupForm from './SignupConfirm';
+
 import './Welcome.css';
 
 const styles = theme => ({

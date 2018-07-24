@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import BottleList from '../../components/bottlelist/BottleList';
+import BottleList from '../../components/BottleList';
 import {loadBottles} from '../../actions';
 
 class CollectedBottles extends Component {

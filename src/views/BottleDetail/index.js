@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import BottleInfo from '../../components/bottleinfo/Bottleinfo';
+import BottleInfo from '../../components/BottleInfo';
 import Button from '@material-ui/core/Button';
 import './BottleDetail.css';
 import { collectBottle } from '../../actions';

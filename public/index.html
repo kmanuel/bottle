@@ -37,5 +37,24 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOEqe_ZPXup9M9sYuN6WvrSEyrrTEse5I"></script>
+    <script>
+        if( !window.location.hash && window.addEventListener ){
+            window.addEventListener("load", function() {
+                setTimeout(function(){
+                    window.scrollTo(0, 0);
+                }, 0);
+            });
+            window.addEventListener( "orientationchange",function() {
+                setTimeout(function(){
+                    window.scrollTo(0, 0);
+                }, 0);
+            });
+            window.addEventListener( "touchstart",function() {
+                setTimeout(function(){
+                    window.scrollTo(0, 0);
+                }, 0);
+            });
+        }
+    </script>
   </body>
 </html>

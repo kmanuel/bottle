@@ -18,64 +18,21 @@ class Overview extends Component {
     constructor(props) {
         super(props);
 
-        this.updatePosition = this.updatePosition.bind(this);
         this.getPosition = this.getPosition.bind(this);
-        this.viewBottle = this.viewBottle.bind(this);
         this.isCloserThan100Meters = this.isCloserThan100Meters.bind(this);
-
-        this.state = {
-            onBottle: undefined
-        };
 
         this.props.loadBottles();
     }
 
-    updatePosition(position) {
-        this.props.updatePosition(position);
-    }
-
-    positionError(position) {
-        console.log(`positionError: `, position);
+    componentDidMount() {
+        this.getPosition();
     }
 
     getPosition() {
         if (navigator.geolocation) {
-            navigator.geolocation.watchPosition(this.updatePosition, this.positionError);
+            navigator.geolocation.watchPosition(this.props.updatePosition, console.log);
         } else {
             console.log("Geolocation is not supported by this browser.");
-        }
-    }
-
-    viewBottle() {
-        this.props.history.push(`/bottle/${this.state.onBottle.id}`);
-    }
-
-    bottle() {
-        if (this.state.onBottle) {
-            return <div className="on-bottle bottle-image"
-                        onClick={this.viewBottle}>
-            </div>
-        }
-    }
-
-    leaveButton(classes) {
-        if (!this.state.onBottle) {
-            return <Link to="/create/bottle">
-                <Button
-                    id="leave-bottle-btn"
-                    className={classes.button}
-                    variant="contained" color="primary">
-                    Leave a bottle
-                </Button>
-            </Link>
-        }
-    }
-
-    positionButton() {
-        if (!this.state.onBottle) {
-            return <Button onClick={this.getPosition}>
-                Position
-            </Button>
         }
     }
 
@@ -111,14 +68,24 @@ class Overview extends Component {
 
         return (
             <div className="overview">
-                <span className="overview-text">{nearbyBottles.length} Bottles nearby!</span>
+                <span className="overview-text">
+                    {nearbyBottles.length} Bottles nearby!
+                </span>
                 <div className="map">
-                    <Map lat={this.props.lat} lng={this.props.lng} zoom={16} bottles={nearbyBottles}
+                    <Map lat={this.props.lat}
+                         lng={this.props.lng}
+                         zoom={16}
+                         bottles={nearbyBottles}
                          onBottleClick={(bottle) => this.onBottleClick(bottle)}/>
                 </div>
-                {this.bottle()}
-                {this.leaveButton(classes)}
-                {this.positionButton(classes)}
+                <Link to="/create/bottle">
+                    <Button
+                        id="leave-bottle-btn"
+                        className={classes.button}
+                        variant="contained" color="primary">
+                        Leave a bottle
+                    </Button>
+                </Link>
             </div>
         );
     }

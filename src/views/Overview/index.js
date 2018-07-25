@@ -8,8 +8,6 @@ import {withStyles} from '@material-ui/core/styles';
 import './Overview.css';
 import {updatePosition, loadBottles} from '../../actions';
 
-const METERS_10 = 10;
-
 const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
@@ -30,27 +28,6 @@ class Overview extends Component {
         };
 
         this.props.loadBottles();
-    }
-
-    checkDistanceToBottles() {
-        this.props.bottles.map(bottle => {
-            const bottlePosition = {
-                lat: bottle.lat,
-                lng: bottle.lng
-            };
-            const distance = getDistanceBetweenInMeters(this.props.position, bottlePosition);
-            if (distance < METERS_10) {
-                if (!this.state.onBottle) {
-                    this.setState({
-                        onBottle: bottle
-                    })
-                } else {
-                    this.setState({
-                        onBottle: undefined
-                    })
-                }
-            }
-        })
     }
 
     updatePosition(position) {

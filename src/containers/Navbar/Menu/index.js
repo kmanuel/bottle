@@ -55,11 +55,11 @@ class NavbarAccountMenu extends Component {
                     open={open}
                     onClose={this.handleClose}
                 >
-                    <MenuItem onClick={this.handleClose}>
-                        <Link to="/settings">
-                            Settings
-                        </Link>
-                    </MenuItem>
+                    {/*<MenuItem onClick={this.handleClose}>*/}
+                        {/*<Link to="/settings">*/}
+                            {/*Settings*/}
+                        {/*</Link>*/}
+                    {/*</MenuItem>*/}
                     <MenuItem onClick={() => this.handleLogout()}>
                             Logout
                     </MenuItem>

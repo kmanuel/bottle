@@ -72,17 +72,17 @@ class Navbar extends Component {
                     </Link>
                 </List>
                 <Divider />
-                <List>
-                    <Link to="collected-bottles">
-                        Collected Bottles
-                    </Link>
-                </List>
-                <Divider />
-                <List>
-                    <Link to="dropped-bottles">
-                        Dropped Bottles
-                    </Link>
-                </List>
+                {/*<List>*/}
+                    {/*<Link to="collected-bottles">*/}
+                        {/*Collected Bottles*/}
+                    {/*</Link>*/}
+                {/*</List>*/}
+                {/*<Divider />*/}
+                {/*<List>*/}
+                    {/*<Link to="dropped-bottles">*/}
+                        {/*Dropped Bottles*/}
+                    {/*</Link>*/}
+                {/*</List>*/}
             </Drawer>
         );
 

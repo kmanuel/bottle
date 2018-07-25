@@ -43,8 +43,6 @@ class Map extends Component {
 
             google.maps.event.addListener(marker, 'click', function() {
                 onBottleClick(bottle);
-                // console.log('marker glick', bottle);
-                // this.props.history.push(`/bottle/${bottle.id}`);
             });
         });
     }

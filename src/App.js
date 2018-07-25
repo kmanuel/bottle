@@ -7,8 +7,6 @@ import {
 import {connect} from 'react-redux';
 import Navbar from './containers/Navbar/index';
 import Welcome from './views/Welcome';
-import CollectedBottles from './views/CollectedBottles';
-import DroppedBottles from './views/DroppedBottles';
 import BottleDetail from './views/BottleDetail';
 import CreateBottle from './views/CreateBottle';
 import Overview from './views/Overview';
@@ -32,8 +30,6 @@ class App extends Component {
                         <div className="content">
                             <Route exact path="/" component={Welcome}/>
                             <PrivateRoute authenticated={isAuthenticated} path="/overview" component={Overview}/>
-                            <PrivateRoute authenticated={isAuthenticated} path="/dropped-bottles" component={DroppedBottles}/>
-                            <PrivateRoute authenticated={isAuthenticated} path="/collected-bottles" component={CollectedBottles}/>
                             <PrivateRoute authenticated={isAuthenticated} path="/create/bottle" component={CreateBottle}/>
                             <PrivateRoute authenticated={isAuthenticated} path="/bottle/:id" component={BottleDetail}/>
                             <Route path="/signup-confirm" component={SignupConfirm}/>

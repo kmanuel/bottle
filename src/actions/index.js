@@ -157,10 +157,3 @@ export const updatePosition = (position) => {
         payload: {position}
     };
 };
-
-export const collectBottle = (bottleId) => {
-    return {
-        type: 'BOTTLE_COLLECT',
-        payload: bottleId
-    };
-};

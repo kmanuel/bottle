@@ -1,6 +1,5 @@
 .overview {
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,14 +15,11 @@
 
 .map {
     margin: 10px;
-    flex: 1 0 80%;
+    flex: 1 1 80%;
     width: 100%;
-    /*min-height: 300px;*/
-    background-color: green;
 }
 
 #leave-bottle-btn {
-    flex: 1 0 30%;
     margin: 10px;
 }
 
@@ -34,7 +30,7 @@
 }
 
 #bottom-buttons {
-    flex: 1 0 20%;
+    flex: 1 1 10%;
     align-items: center;
     justify-items: center;
 }

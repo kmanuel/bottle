@@ -60,11 +60,7 @@ class Overview extends Component {
     render() {
         const classes = this.props;
         const {bottles} = this.props;
-
-        let nearbyBottles = [];
-        if (bottles) {
-            nearbyBottles = bottles.filter(this.isCloserThan100Meters);
-        }
+        let nearbyBottles = bottles.filter(this.isCloserThan100Meters);
 
         return (
             <div className="overview">
@@ -78,14 +74,16 @@ class Overview extends Component {
                          bottles={nearbyBottles}
                          onBottleClick={(bottle) => this.onBottleClick(bottle)}/>
                 </div>
-                <Link to="/create/bottle">
-                    <Button
-                        id="leave-bottle-btn"
-                        className={classes.button}
-                        variant="contained" color="primary">
-                        Leave a bottle
-                    </Button>
-                </Link>
+                <div id="bottom-buttons">
+                    <Link to="/create/bottle">
+                        <Button
+                            id="leave-bottle-btn"
+                            className={classes.button}
+                            variant="contained" color="primary">
+                            Leave a bottle
+                        </Button>
+                    </Link>
+                </div>
             </div>
         );
     }

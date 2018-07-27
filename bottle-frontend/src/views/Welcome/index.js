@@ -92,6 +92,9 @@ class Welcome extends Component {
             <div className="welcome">
                 <div className="bottle-image welcome-image"></div>
 
+                {this.props.auth.loginStatus && this.props.auth.loginStatus === 'wrongCredentials' &&
+                    'Wrong Credentials'}
+
                 {loginForm}
                 {signupForm}
 
@@ -106,7 +109,6 @@ Welcome.propTypes = {
 };
 
 const mapStateToProps = ({auth}) => {
-    console.log(auth);
     return {auth};
 };
 

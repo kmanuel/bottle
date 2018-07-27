@@ -1,8 +1,16 @@
-const defaultState = {};
+const defaultState = {
+};
 
 const auth = (state = defaultState, action) => {
     switch (action.type) {
         case 'LOGIN':
+            const {payload} = action;
+            if (payload.code) {
+                return {
+                    ...state,
+                    loginStatus: 'wrongCredentials'
+                };
+            }
         case 'AUTO_LOGIN':
             console.log('login payload: ', action.payload);
             const user = {

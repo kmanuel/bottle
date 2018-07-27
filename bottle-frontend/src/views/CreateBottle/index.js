@@ -53,6 +53,8 @@ class CreateBottle extends Component {
                     value={this.state.body}
                     onChange={this.onBodyChange}
                     margin="normal"
+                    placeholder="Message"
+                    multiline
                 />
             </div>
             <div className="btn-group-horizontal">

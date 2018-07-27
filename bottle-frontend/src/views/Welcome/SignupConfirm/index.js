@@ -70,7 +70,7 @@ class SignupForm extends Component {
                         }}
                         value={this.state.email}
                         onChange={this.handleChange('email')}
-                        placeholder="email"
+                        placeholder="Email"
                         fullWidth
                         margin="normal"
                     />

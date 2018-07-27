@@ -91,7 +91,7 @@ class Overview extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        bottles: state.bottles.all,
+        bottles: state.bottles.onMap,
         lat: state.position.lat,
         lng: state.position.lng
     };

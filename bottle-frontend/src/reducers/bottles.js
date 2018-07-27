@@ -24,16 +24,13 @@ const bottles = (state = defaultState, action) => {
         case 'LOAD_BOTTLES':
             const local = mapToLocalBottles(action.payload.data);
             return {
-                ...state,
                 all: local,
-                onMap: local.filter(b => !b.collectedBy)
+                onMap: local.filter(b => !b.collectedBy),
             };
         case 'COLLECT_BOTTLE':
             return state;
         case 'FETCH_COLLECTED_BOTTLES':
             const username = action.payload.user;
-            console.log('fetch collected reducer');
-            console.log(state);
             const collectedBottles = state.all.filter(b => b.collectedBy === username);
             return {
                 ...state,

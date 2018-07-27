@@ -153,7 +153,8 @@ export const createBottle = (title, body, position, author, history) => {
 
 export const collectBottle = (bottleId) => {
     const currentUser = userPool.getCurrentUser();
-    const collectPromise = bottleService.collectBottle(bottleId, currentUser.username);
+    const collectPromise = bottleService.collectBottle(bottleId, currentUser.username)
+        .then(this.loadBottles)
     return {
         type: 'COLLECT_BOTTLE',
         payload: collectPromise

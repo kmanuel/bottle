@@ -24,6 +24,7 @@ const bottles = (state = defaultState, action) => {
         case 'LOAD_BOTTLES':
             const local = mapToLocalBottles(action.payload.data);
             return {
+                ...state,
                 all: local,
                 onMap: local.filter(b => !b.collectedBy),
             };

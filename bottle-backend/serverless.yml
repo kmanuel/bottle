@@ -43,6 +43,22 @@ functions:
           method: GET
           cors:
             origin: '*'
+  userBottles:
+    handler: user/collectedBottles.handler
+    events:
+      - http:
+          path: user/{username}/collected-bottles
+          method: GET
+          cors:
+            origin: '*'
+  collectBottle:
+    handler: user/collectedBottlesAdd.handler
+    events:
+      - http:
+          path: user/{username}/collected-bottes/{bottleId}
+          method: PUT
+          cors:
+            origin: '*'
 
 resources:
   Resources:

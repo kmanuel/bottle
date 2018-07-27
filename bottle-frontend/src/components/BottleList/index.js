@@ -7,7 +7,7 @@ import BottleListItem from './Item/index';
 
 
 const toBottleListItem = (bottle) => {
-    return <ListItem key={bottle.id} button>
+    return <ListItem key={bottle.id}  button>
         <ListItemText primary={<BottleListItem bottle={bottle} />} />
     </ListItem>;
 };

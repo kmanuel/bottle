@@ -15,8 +15,13 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import Map from '@material-ui/icons/Map';
+import ListItem from  '@material-ui/core/ListItem';
+import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 
 import NavbarAccountMenu from './Menu/index';
+
+import './Navbar.css';
 
 const styles = {
     root: {
@@ -44,9 +49,13 @@ class Navbar extends Component {
         this.setState({open: true});
     };
 
-    handleDrawerClose = () => {
-        this.setState({open: false});
-    };
+    toggleOpen = () => {
+        this.setState(prevState => {
+            return {
+                open: !prevState.open
+            }
+        });
+    }
 
     render() {
 
@@ -60,20 +69,25 @@ class Navbar extends Component {
                 classes={{
                     paper: classes.drawerPaper,
                 }}
-                open={this.state.open}>
+                open={this.state.open}
+                onClick={() => this.toggleOpen()}>
                 <div className={classes.drawerHeader}>
-                    <IconButton onClick={this.handleDrawerClose}>
+                    <IconButton>
                         {<ChevronLeftIcon />}
                     </IconButton>
                 </div>
                 <Divider />
                 <List className="the-list">
                     <Link to="/overview">
-                        Overview
+                        <ListItem button>
+                            <Map />Overview
+                        </ListItem>
                     </Link>
                     <Divider />
                     <Link to="/collected-bottles">
-                        Collected Bottles
+                        <ListItem button>
+                            <ShoppingBasket/>Collected Bottles
+                        </ListItem>
                     </Link>
                 </List>
                 <Divider />

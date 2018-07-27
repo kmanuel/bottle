@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { collectBottle } from '../../actions';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {collectBottle} from '../../actions';
+import {connect} from 'react-redux';
 import BottleInfo from '../../components/BottleInfo';
 import Button from '@material-ui/core/Button';
 import './BottleDetail.css';
@@ -27,12 +27,14 @@ const BottleDetail = (props) => {
 
     if (props.bottle) {
         return (
-            <div>
-                <BottleInfo bottle={props.bottle}/>
+            <div className="bottle-detail">
+                <div className="bottle-details-info">
+                    <BottleInfo bottle={props.bottle}/>
+                </div>
                 <div className="detail-buttons">
-                    {!bottleCollected()
-                        && takeButton}
                     {backButton}
+                    {!bottleCollected()
+                    && takeButton}
                 </div>
             </div>
         );

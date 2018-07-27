@@ -29,6 +29,7 @@ class LoginForm extends Component {
         };
 
         this.onLogin = this.onLogin.bind(this);
+        this.onCancel = this.onCancel.bind(this);
     }
 
     handleChange = prop => event => {
@@ -41,6 +42,10 @@ class LoginForm extends Component {
 
     onLogin = () => {
         this.props.onLogin(this.state.username, this.state.password);
+    };
+
+    onCancel = () => {
+        this.props.onCancel();
     };
 
     render() {
@@ -81,12 +86,18 @@ class LoginForm extends Component {
                     />
                 </div>
                 <div className="buttons">
-                        <Button
-                            className={'login-form-button ' + classes.button}
-                            variant="contained" color="primary"
-                            onClick={this.onLogin}>
-                            Login
-                        </Button>
+                    <Button
+                        variant="contained" color="primary"
+                        onClick={this.onCancel}>
+                        Cancel
+                    </Button>
+                    <Button
+                        className={'login-form-button ' + classes.button}
+                        variant="contained" color="primary"
+                        onClick={this.onLogin}>
+                        Login
+                    </Button>
+
                 </div>
             </div>
         );

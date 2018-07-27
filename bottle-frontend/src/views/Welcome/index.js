@@ -57,14 +57,16 @@ class Welcome extends Component {
         const loginForm = (this.state.showLoginForm)
             ? <div className="login-form-holder">
                 <LoginForm history={this.props.history}
-                           onLogin={(username, password) => this.props.login(username, password, this.props.history)}/>
+                           onLogin={(username, password) => this.props.login(username, password, this.props.history)}
+                           onCancel={this.toggleLogin} />
             </div>
             : '';
 
         const signupForm = (this.state.showSignupForm)
             ? <div className="signup-form-holder">
                 <SignupForm history={this.props.history}
-                            onSignup={(username, email, password) => this.props.signup(username, email, password, this.props.history)}/>
+                            onSignup={(username, email, password) => this.props.signup(username, email, password, this.props.history)}
+                            onCancel={this.toggleSignup} />
             </div>
             : '';
 

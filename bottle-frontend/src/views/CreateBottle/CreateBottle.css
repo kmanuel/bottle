@@ -4,7 +4,12 @@
     align-items: center;
 }
 
+.create-bottle-main {
+    flex: 1 0 90%;
+}
+
 .btn-group-horizontal {
+    flex: 1 0 10%;
     display: flex;
     align-items: center;
     justify-items: center;

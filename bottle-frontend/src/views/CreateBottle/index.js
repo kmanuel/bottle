@@ -38,31 +38,33 @@ class CreateBottle extends Component {
 
     render() {
         return <div className="create-bottle">
-            <h1>New Bottle</h1>
-            <TextField
-                id="title"
-                label="Title"
-                value={this.state.title}
-                onChange={this.onTitleChange}
-                margin="normal"
-            />
-            <TextField
-                id="body"
-                label="Body"
-                value={this.state.body}
-                onChange={this.onBodyChange}
-                margin="normal"
-            />
+            <div className="create-bottle-main">
+                <h1>New Bottle</h1>
+                <TextField
+                    id="title"
+                    label="Title"
+                    value={this.state.title}
+                    onChange={this.onTitleChange}
+                    margin="normal"
+                />
+                <TextField
+                    id="body"
+                    label="Body"
+                    value={this.state.body}
+                    onChange={this.onBodyChange}
+                    margin="normal"
+                />
+            </div>
             <div className="btn-group-horizontal">
-                <Button
-                    variant="contained" color="primary"
-                    onClick={this.onSave}>
-                    Save
-                </Button>
                 <Button
                     variant="contained" color="primary"
                     onClick={() => this.props.history.goBack()}>
                     Cancel
+                </Button>
+                <Button
+                    variant="contained" color="primary"
+                    onClick={this.onSave}>
+                    Save
                 </Button>
             </div>
         </div>

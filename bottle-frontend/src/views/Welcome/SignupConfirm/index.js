@@ -36,12 +36,12 @@ class SignupForm extends Component {
         this.setState({[prop]: event.target.value});
     };
 
-    // handleClickShowPassword = () => {
-    //     this.setState(state => ({showPassword: !state.showPassword}));
-    // };
-
     signup = () => {
         this.props.onSignup(this.state.username, this.state.email, this.state.password);
+    };
+
+    onCancel = () => {
+        this.props.onCancel();
     };
 
     render() {
@@ -95,12 +95,18 @@ class SignupForm extends Component {
                     />
                 </div>
                 <div className="buttons">
-                        <Button
-                            className={'login-form-button ' + classes.button}
-                            variant="contained" color="primary"
-                            onClick={this.signup}>>
-                            Signup
-                        </Button>
+                    <Button
+                        className={'login-form-button ' + classes.button}
+                        variant="contained" color="primary"
+                        onClick={this.onCancel}>
+                        Cancel
+                    </Button>
+                    <Button
+                        className={'login-form-button ' + classes.button}
+                        variant="contained" color="primary"
+                        onClick={this.signup}>
+                        Signup
+                    </Button>
                 </div>
             </div>
         );

@@ -55,7 +55,7 @@ functions:
     handler: user/collectedBottlesAdd.handler
     events:
       - http:
-          path: user/{username}/collected-bottes/{bottleId}
+          path: user/{username}/collected-bottles/{bottleId}
           method: PUT
           cors:
             origin: '*'

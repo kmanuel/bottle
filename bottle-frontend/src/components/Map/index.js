@@ -43,6 +43,11 @@ class Map extends Component {
 
         this.clearOverlays();
 
+        const icon = {
+            url: 'https://s3.eu-central-1.amazonaws.com/com.mankru.site/bottle.png',
+            scaledSize: new google.maps.Size(50, 50)
+        };
+
         this.props.bottles.map(bottle => {
             const markerLocation = {
                 lat: bottle.lat,
@@ -52,6 +57,7 @@ class Map extends Component {
                 position: {lat: markerLocation.lat, lng: markerLocation.lng},
                 map: this.state.gmap,
                 title: 'Hello World!',
+                icon: icon
             });
             this.markers.push(marker);
 

@@ -53,7 +53,7 @@ class LoginForm extends Component {
 
         return (
             <div className="login-form">
-                <div className="inputs">
+                <form className="inputs">
                     <TextField
                         id="login-form-username"
                         InputLabelProps={{
@@ -84,7 +84,7 @@ class LoginForm extends Component {
                             </InputAdornment>
                         }
                     />
-                </div>
+                </form>
                 <div className="buttons">
                     <Button
                         variant="contained" color="primary"

@@ -9,7 +9,7 @@ const BottleDetail = (props) => {
 
     const takeButton = <Button
         variant="contained" color="primary"
-        onClick={() => props.collectBottle(props.bottle.id)}>
+        onClick={() => props.collectBottle(props.bottle.id, props.history)}>
         Take
     </Button>;
 

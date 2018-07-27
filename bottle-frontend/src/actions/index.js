@@ -151,14 +151,11 @@ export const createBottle = (title, body, position, author, history) => {
     return saveBottleAndLoad(title, body, position, author, history);
 };
 
-export const collectBottle = (bottleId) => {
+export const collectBottle = (bottleId, history) => {
     const currentUser = userPool.getCurrentUser();
-    const collectPromise = bottleService.collectBottle(bottleId, currentUser.username)
+    return bottleService.collectBottle(bottleId, currentUser.username)
         .then(this.loadBottles)
-    return {
-        type: 'COLLECT_BOTTLE',
-        payload: collectPromise
-    }
+        .then(() => history.push('/overview'))
 };
 
 const saveBottleAndLoad = async (title, body, position, author, history) => {

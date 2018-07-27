@@ -3,11 +3,21 @@ import './Map.css';
 
 /*global google*/
 class Map extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
             gmap: undefined
         }
+
+        this.markers = [];
+    }
+
+    clearOverlays() {
+        for (let i = 0; i < this.markers.length; i++) {
+            this.markers[i].setMap(null);
+        }
+        this.markers.length = 0;
     }
 
     componentDidMount() {
@@ -24,11 +34,14 @@ class Map extends Component {
         this.setState({
             gmap: map
         });
+
     }
 
     componentDidUpdate() {
         const {lat, lng, onBottleClick} = this.props;
-        this.state.gmap.setCenter(new google.maps.LatLng( lat, lng ));
+        this.state.gmap.setCenter(new google.maps.LatLng(lat, lng));
+
+        this.clearOverlays();
 
         this.props.bottles.map(bottle => {
             const markerLocation = {
@@ -40,8 +53,9 @@ class Map extends Component {
                 map: this.state.gmap,
                 title: 'Hello World!',
             });
+            this.markers.push(marker);
 
-            google.maps.event.addListener(marker, 'click', function() {
+            google.maps.event.addListener(marker, 'click', function () {
                 onBottleClick(bottle);
             });
         });

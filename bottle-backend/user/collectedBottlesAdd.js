@@ -23,25 +23,13 @@ module.exports.handler = (event, context, callback) => {
     };
 
     dynamodb.updateItem(params, (err, data) => {
-        if (err) {
-            console.log('error', err);
-            const ret = {
-                err,
-                event
-            };
-            return callback(JSON.stringify(ret));
-        }
-        else {
-            console.log('success', data);
-            return callback(null, {
-                statusCode: 200,
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                },
-                body: JSON.stringify({
-                    data
-                })
-            });
-        }
+        if (err) return callback(JSON.stringify(err));
+        else return callback(null, {
+            statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify({data})
+        });
     });
 };

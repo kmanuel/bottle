@@ -9,21 +9,13 @@ module.exports.handler = (event, context, callback) => {
     };
 
     dynamodb.scan(params, (err, data) => {
-        if (err) {
-            const ret = {
-                err,
-                event
-            };
-            return callback(JSON.stringify(ret));
-        }
+        if (err) return callback(JSON.stringify(err));
         else return callback(null, {
             statusCode: 200,
             headers: {
                 'Access-Control-Allow-Origin': '*',
             },
-            body: JSON.stringify({
-                data
-            })
+            body: JSON.stringify({data})
         });
     });
 };

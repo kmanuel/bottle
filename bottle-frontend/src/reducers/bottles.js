@@ -22,6 +22,9 @@ const bottles = (state = defaultState, action) => {
             return {
                 all: mapToLocalBottles(action.payload.data)
             };
+        case 'COLLECT_BOTTLE':
+            console.log('collect bottle reducer');
+            return state;
         default:
             return state;
     }

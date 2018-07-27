@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
+import { collectBottle } from '../../actions';
 import { connect } from 'react-redux';
 import BottleInfo from '../../components/BottleInfo';
 import Button from '@material-ui/core/Button';
 import './BottleDetail.css';
 
 const BottleDetail = (props) => {
+
+    const takeButton = <Button
+        variant="contained" color="primary"
+        onClick={() => props.collectBottle(props.bottle.id)}>
+        Take
+    </Button>;
 
     const backButton = <Button
         variant="contained" color="primary"
@@ -19,6 +26,7 @@ const BottleDetail = (props) => {
             <div>
                 <BottleInfo bottle={props.bottle}/>
                 <div className="detail-buttons">
+                    {takeButton}
                     {backButton}
                 </div>
             </div>
@@ -37,4 +45,4 @@ const mapStateToProps = (state, prevProps) => {
     };
 };
 
-export default connect(mapStateToProps, {})(BottleDetail);
+export default connect(mapStateToProps, {collectBottle})(BottleDetail);

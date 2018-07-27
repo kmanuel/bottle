@@ -1,4 +1,3 @@
-// const API_URL = 'https://j4mfxo6i2m.execute-api.eu-central-1.amazonaws.com/dev';
 const API_URL = 'https://jf71y5a8ak.execute-api.eu-central-1.amazonaws.com/dev';
 
 const saveBottle = (title, body, pos, author) => {
@@ -24,4 +23,12 @@ const getBottles = () => {
         .then(res => res.json());
 };
 
-export {saveBottle, getBottles};
+const collectBottle = (bottleId, collectedBy) => {
+    return fetch(`${API_URL}/user/${collectedBy}/collected-bottles/${bottleId}`,
+        {
+            method: 'PUT'
+        })
+        .catch(err => console.log(err));
+};
+
+export {saveBottle, getBottles, collectBottle};

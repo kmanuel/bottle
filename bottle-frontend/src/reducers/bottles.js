@@ -1,7 +1,9 @@
 const defaultState = {
     all: [],
+    onMap: [],
     collectedBottles: [],
-    droppedBottles: []
+    droppedBottles: [],
+    currBottle: {}
 };
 
 const mapToLocalBottles = (bottleDtos) => {
@@ -11,7 +13,8 @@ const mapToLocalBottles = (bottleDtos) => {
             title: dto.title.S,
             body: dto.body.S,
             lat: parseFloat(dto.lat.N),
-            lng: parseFloat(dto.lng.N)
+            lng: parseFloat(dto.lng.N),
+            collectedBy: (dto.collectedBy && dto.collectedBy.S)
         };
     });
 };
@@ -19,12 +22,23 @@ const mapToLocalBottles = (bottleDtos) => {
 const bottles = (state = defaultState, action) => {
     switch (action.type) {
         case 'LOAD_BOTTLES':
+            const local = mapToLocalBottles(action.payload.data);
             return {
-                all: mapToLocalBottles(action.payload.data)
+                ...state,
+                all: local,
+                onMap: local.filter(b => !b.collectedBy)
             };
         case 'COLLECT_BOTTLE':
-            console.log('collect bottle reducer');
             return state;
+        case 'FETCH_COLLECTED_BOTTLES':
+            const username = action.payload.user;
+            console.log('fetch collected reducer');
+            console.log(state);
+            const collectedBottles = state.all.filter(b => b.collectedBy === username);
+            return {
+                ...state,
+                collectedBottles
+            };
         default:
             return state;
     }

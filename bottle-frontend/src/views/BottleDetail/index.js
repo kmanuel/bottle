@@ -21,12 +21,17 @@ const BottleDetail = (props) => {
         Leave
     </Button>;
 
+    function bottleCollected() {
+        return props.bottle.collectedBy;
+    }
+
     if (props.bottle) {
         return (
             <div>
                 <BottleInfo bottle={props.bottle}/>
                 <div className="detail-buttons">
-                    {takeButton}
+                    {!bottleCollected()
+                        && takeButton}
                     {backButton}
                 </div>
             </div>

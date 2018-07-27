@@ -9,6 +9,7 @@ import Navbar from './containers/Navbar/index';
 import Welcome from './views/Welcome';
 import BottleDetail from './views/BottleDetail';
 import CreateBottle from './views/CreateBottle';
+import CollectedBottles from './views/CollectedBottles';
 import Overview from './views/Overview';
 import SignupConfirm from './views/SignupConfirm';
 import './App.css';
@@ -32,6 +33,7 @@ class App extends Component {
                             <PrivateRoute authenticated={isAuthenticated} path="/overview" component={Overview}/>
                             <PrivateRoute authenticated={isAuthenticated} path="/create/bottle" component={CreateBottle}/>
                             <PrivateRoute authenticated={isAuthenticated} path="/bottle/:id" component={BottleDetail}/>
+                            <PrivateRoute authenticated={isAuthenticated} path="/collected-bottles" component={CollectedBottles}/>
                             <Route path="/signup-confirm" component={SignupConfirm}/>
                         </div>
                     </div>

@@ -75,6 +75,13 @@ export const login = (username, password, history) => {
     };
 };
 
+export const loadBottle = (bottleId) => {
+    return {
+        type: 'LOAD_BOTTLE',
+        payload: bottleService.findOne(bottleId)
+    };
+};
+
 export const signup = (username, email, password, history) => {
 
     const emailAttribute = {
@@ -164,5 +171,12 @@ export const updatePosition = (position) => {
     return {
         type: 'POSITION_UPDATE',
         payload: {position}
+    };
+};
+
+export const fetchCollectedBottles = () => {
+    return {
+        type: 'FETCH_COLLECTED_BOTTLES',
+        payload: {user: userPool.getCurrentUser().getUsername()}
     };
 };

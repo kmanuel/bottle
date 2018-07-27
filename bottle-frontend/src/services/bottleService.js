@@ -31,4 +31,8 @@ const collectBottle = (bottleId, collectedBy) => {
         .catch(err => console.log(err));
 };
 
-export {saveBottle, getBottles, collectBottle};
+const findOne = (bottleId) => {
+    return fetch(`${API_URL}/bottles/${bottleId}`);
+};
+
+export {saveBottle, getBottles, collectBottle, findOne};

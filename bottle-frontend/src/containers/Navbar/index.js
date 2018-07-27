@@ -55,6 +55,7 @@ class Navbar extends Component {
         const {classes} = this.props;
         const drawer = (
             <Drawer
+                className="left-drawer"
                 variant="persistent"
                 classes={{
                     paper: classes.drawerPaper,
@@ -66,9 +67,13 @@ class Navbar extends Component {
                     </IconButton>
                 </div>
                 <Divider />
-                <List>
+                <List className="the-list">
                     <Link to="/overview">
                         Overview
+                    </Link>
+                    <Divider />
+                    <Link to="/collected-bottles">
+                        Collected Bottles
                     </Link>
                 </List>
                 <Divider />

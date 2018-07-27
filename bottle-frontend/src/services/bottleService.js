@@ -1,4 +1,5 @@
-const API_URL = 'https://j4mfxo6i2m.execute-api.eu-central-1.amazonaws.com/dev';
+// const API_URL = 'https://j4mfxo6i2m.execute-api.eu-central-1.amazonaws.com/dev';
+const API_URL = 'https://jf71y5a8ak.execute-api.eu-central-1.amazonaws.com/dev';
 
 const saveBottle = (title, body, pos, author) => {
     const newBottle = {

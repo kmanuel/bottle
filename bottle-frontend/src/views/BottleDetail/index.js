@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {collectBottle} from '../../actions';
 import {connect} from 'react-redux';
 import BottleInfo from '../../components/BottleInfo';

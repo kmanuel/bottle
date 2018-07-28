@@ -29,10 +29,6 @@ const theme = createMuiTheme({
 });
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const {isAuthenticated} = this.props;
         return (

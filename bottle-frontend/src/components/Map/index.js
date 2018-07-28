@@ -8,7 +8,7 @@ class Map extends Component {
         super(props);
         this.state = {
             gmap: undefined
-        }
+        };
 
         this.markers = [];
     }
@@ -48,7 +48,7 @@ class Map extends Component {
             scaledSize: new google.maps.Size(50, 50)
         };
 
-        this.props.bottles.map(bottle => {
+        this.props.bottles.forEach(bottle => {
             const markerLocation = {
                 lat: bottle.lat,
                 lng: bottle.lng

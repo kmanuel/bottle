@@ -1,28 +1,34 @@
-const defaultState = {
-};
+import * as types from '../actions/types';
+
+const defaultState = {};
 
 const auth = (state = defaultState, action) => {
     switch (action.type) {
-        case 'LOGIN':
+        case types.LOGIN:
             const {payload} = action;
             if (payload.code) {
                 return {
                     ...state,
                     loginStatus: 'wrongCredentials'
                 };
+            } else {
+                const user = {
+                    username: action.payload.idToken.payload['cognito:username'],
+                    idToken: action.payload.idToken
+                };
+                return {user};
             }
-        case 'AUTO_LOGIN':
-            console.log('login payload: ', action.payload);
+        case types.AUTO_LOGIN:
             const user = {
                 username: action.payload.idToken.payload['cognito:username'],
                 idToken: action.payload.idToken
             };
             return {user};
-        case 'LOGOUT':
+        case types.LOGOUT:
             return {};
-        case 'SIGNUP':
+        case types.SIGNUP:
             return {};
-        case 'ACCOUNT_CONFIRMATION':
+        case types.ACCOUNT_CONFIRMATION:
             return {};
         default:
             return state;

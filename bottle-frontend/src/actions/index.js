@@ -1,4 +1,5 @@
 import * as bottleService from '../services/bottleService';
+import * as types from './types';
 
 import {
     CognitoUserPool,
@@ -14,7 +15,7 @@ const POOL_DATA = {
 const userPool = new CognitoUserPool(POOL_DATA);
 
 const getAutoLoginSession = () => {
-    var cognitoUser = userPool.getCurrentUser();
+    const cognitoUser = userPool.getCurrentUser();
 
     return new Promise((resolve, reject) => {
         if (cognitoUser != null) {
@@ -30,14 +31,14 @@ const getAutoLoginSession = () => {
 
 export const autoLogin = () => {
     return {
-        type: 'AUTO_LOGIN',
+        type: types.AUTO_LOGIN,
         payload: getAutoLoginSession()
     }
 };
 
 export const loadBottles = () => {
     return {
-        type: 'LOAD_BOTTLES',
+        type: types.LOAD_BOTTLES,
         payload: bottleService.getBottles()
     };
 };
@@ -70,15 +71,8 @@ export const login = (username, password, history) => {
     });
 
     return {
-        type: 'LOGIN',
+        type: types.LOGIN,
         payload: loginResultPromise
-    };
-};
-
-export const loadBottle = (bottleId) => {
-    return {
-        type: 'LOAD_BOTTLE',
-        payload: bottleService.findOne(bottleId)
     };
 };
 
@@ -105,7 +99,7 @@ export const signup = (username, email, password, history) => {
     history.push('/signup-confirm');
 
     return {
-        type: 'SIGNUP',
+        type: types.SIGNUP,
         payload: signupPromise
     }
 };
@@ -117,7 +111,7 @@ export const logout = (history) => {
     }
     history.push('/');
     return {
-        type: 'LOGOUT'
+        type: types.LOGOUT
     };
 };
 
@@ -141,7 +135,7 @@ export const confirm = (username, code, history) => {
     });
 
     return {
-        type: 'ACCOUNT_CONFIRMATION',
+        type: types.ACCOUNT_CONFIRMATION,
         payload: confirmPromise
     };
 };
@@ -159,7 +153,7 @@ export const collectBottle = (bottleId, history) => {
 };
 
 const saveBottleAndLoad = async (title, body, position, author, history) => {
-    const res = await bottleService.saveBottle(title, body, position, author);
+    await bottleService.saveBottle(title, body, position, author);
     const bottles = await loadBottles();
     history.push('/overview');
     return bottles;
@@ -167,14 +161,14 @@ const saveBottleAndLoad = async (title, body, position, author, history) => {
 
 export const updatePosition = (position) => {
     return {
-        type: 'POSITION_UPDATE',
+        type: types.POSITION_UPDATE,
         payload: {position}
     };
 };
 
 export const fetchCollectedBottles = () => {
     return {
-        type: 'FETCH_COLLECTED_BOTTLES',
+        type: types.FETCH_COLLECTED_BOTTLES,
         payload: {user: userPool.getCurrentUser().getUsername()}
     };
 };

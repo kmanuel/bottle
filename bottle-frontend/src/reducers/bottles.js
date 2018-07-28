@@ -1,3 +1,5 @@
+import * as types from '../actions/types';
+
 const defaultState = {
     all: [],
     onMap: [],
@@ -21,16 +23,16 @@ const mapToLocalBottles = (bottleDtos) => {
 
 const bottles = (state = defaultState, action) => {
     switch (action.type) {
-        case 'LOAD_BOTTLES':
+        case types.LOAD_BOTTLES:
             const local = mapToLocalBottles(action.payload.data);
             return {
                 ...state,
                 all: local,
                 onMap: local.filter(b => !b.collectedBy),
             };
-        case 'COLLECT_BOTTLE':
+        case types.COLLECT_BOTTLE:
             return state;
-        case 'FETCH_COLLECTED_BOTTLES':
+        case types.FETCH_COLLECTED_BOTTLES:
             const username = action.payload.user;
             const collectedBottles = state.all.filter(b => b.collectedBy === username);
             return {

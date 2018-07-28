@@ -1,0 +1,9 @@
+export const AUTO_LOGIN = 'AUTO_LOGIN';
+export const LOAD_BOTTLES = 'LOAD_BOTTLES';
+export const LOGIN = 'LOGIN';
+export const COLLECT_BOTTLE = 'COLLECT_BOTTLE';
+export const SIGNUP = 'SIGNUP';
+export const LOGOUT = 'LOGOUT';
+export const ACCOUNT_CONFIRMATION = 'ACCOUNT_CONFIRMATION';
+export const POSITION_UPDATE = 'POSITION_UPDATE';
+export const FETCH_COLLECTED_BOTTLES = 'FETCH_COLLECTED_BOTTLES';

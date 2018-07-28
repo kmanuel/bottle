@@ -14,7 +14,7 @@ const BottleInfo = (props) => {
             </Card>
         )
     } else {
-        return <div>Unknown bottle</div>
+        return <div>Unknown Bottle</div>
     }
 };
 

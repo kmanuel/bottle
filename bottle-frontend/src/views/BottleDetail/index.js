@@ -8,6 +8,7 @@ import './BottleDetail.css';
 const BottleDetail = (props) => {
 
     const takeButton = <Button
+        className="take-button"
         variant="contained" color="primary"
         onClick={() => props.collectBottle(props.bottle.id, props.history)}>
         Take

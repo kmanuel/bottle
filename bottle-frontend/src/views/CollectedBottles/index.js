@@ -8,7 +8,7 @@ import BottleList from '../../components/BottleList';
 class CollectedBottles extends React.Component {
     constructor(props) {
         super(props);
-        props.fetchCollectedBottles();
+        this.props.fetchCollectedBottles();
     }
 
     render() {

@@ -49,10 +49,7 @@ class Map extends Component {
         };
 
         this.props.bottles.forEach(bottle => {
-            const markerLocation = {
-                lat: bottle.lat,
-                lng: bottle.lng
-            };
+            const markerLocation = bottle.position;
             const marker = new google.maps.Marker({
                 position: {lat: markerLocation.lat, lng: markerLocation.lng},
                 map: this.state.gmap,

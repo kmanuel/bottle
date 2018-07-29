@@ -1,18 +1,10 @@
 const API_URL = 'https://jf71y5a8ak.execute-api.eu-central-1.amazonaws.com/dev';
 
-const saveBottle = (title, body, pos, author) => {
-    const newBottle = {
-        title,
-        body,
-        lat: pos.lat,
-        lng: pos.lng,
-        author
-    };
-
+const saveBottle = (bottle) => {
     return fetch(`${API_URL}/bottles`,
         {
             method: 'POST',
-            body: JSON.stringify(newBottle)
+            body: JSON.stringify(bottle)
         })
         .then((res) => res)
         .catch(err => console.log(err));

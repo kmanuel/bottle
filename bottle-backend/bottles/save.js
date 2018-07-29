@@ -13,10 +13,10 @@ module.exports.handler = (event, context, callback) => {
                 S: uuid.v1()
             },
             "lat": {
-                N: '' + json.lat
+                N: '' + json.position.lat
             },
             "lng": {
-                N: '' + json.lng
+                N: '' + json.position.lng
             },
             "title": {
                 S: json.title

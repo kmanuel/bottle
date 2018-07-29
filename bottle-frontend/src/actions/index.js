@@ -1,6 +1,7 @@
 import * as bottleService from '../services/bottleService';
 import * as authService from '../services/authService';
 import * as types from './types';
+import Bottle from '../models/Bottle';
 
 export const autoLogin = () => {
     return {
@@ -58,7 +59,15 @@ export const confirm = (username, code, history) => {
 
 
 export const createBottle = (title, body, position, author, history) => {
-    return saveBottleAndLoad(title, body, position, author, history);
+    const bottle = new Bottle(title, body, position.lat, position.lng, author);
+    return saveBottleAndLoad(bottle, history);
+};
+
+const saveBottleAndLoad = async(bottle, history) => {
+    await bottleService.saveBottle(bottle);
+    const bottles = await loadBottles();
+    history.push('/overview');
+    return bottles;
 };
 
 export const collectBottle = (bottleId, history) => {
@@ -66,13 +75,6 @@ export const collectBottle = (bottleId, history) => {
     return bottleService.collectBottle(bottleId, currentUser.username)
         .then(this.loadBottles)
         .then(() => history.push('/overview'))
-};
-
-const saveBottleAndLoad = async(title, body, position, author, history) => {
-    await bottleService.saveBottle(title, body, position, author);
-    const bottles = await loadBottles();
-    history.push('/overview');
-    return bottles;
 };
 
 export const updatePosition = (position) => {

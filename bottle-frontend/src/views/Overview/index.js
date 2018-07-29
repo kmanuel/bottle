@@ -60,7 +60,12 @@ class Overview extends Component {
     render() {
         const classes = this.props;
         const {bottles} = this.props;
-        let nearbyBottles = bottles.filter(this.isCloserThan100Meters);
+        const userLocation = {
+            lat: this.props.lat,
+            lng: this.props.lng
+        };
+
+        let nearbyBottles = bottles.filter(b => b.meterDistanceFrom(userLocation) < 100);
 
         return (
             <div className="overview">

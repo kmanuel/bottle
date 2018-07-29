@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {
     BrowserRouter as Router,
     Route,
-    Redirect
 } from 'react-router-dom'
 import {connect} from 'react-redux';
 import Navbar from './containers/Navbar/index';
@@ -66,7 +65,7 @@ const PrivateRoute = ({component, authenticated, ...rest}) => {
     if (authenticated) {
         return <Route {...rest} component={component}/>;
     } else {
-        return <Redirect to='/'/>;
+        return <Route component={Welcome} />;
     }
 };
 

@@ -21,14 +21,12 @@ it('returns that bottle is held by somebody', () => {
 });
 
 it('returns that bottle is held by me', () => {
-   const bottle = new Bottle('title', 'body', 1, 2, 'admin');
-   bottle.setCollector('me');
+   const bottle = new Bottle('title', 'body', 1, 2, 'admin', null, 'me');
    expect(bottle.isCollectedBy('me')).toBeTruthy();
 });
 
 it('returns that bottle is not held by me', () => {
-    const bottle = new Bottle('title', 'body', 1, 2, 'admin');
-    bottle.setCollector('someone else');
+    const bottle = new Bottle('title', 'body', 1, 2, 'admin', null, 'someone else');
     expect(bottle.isCollectedBy('me')).toBeFalsy();
 });
 

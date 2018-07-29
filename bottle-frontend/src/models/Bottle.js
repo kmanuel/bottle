@@ -3,19 +3,17 @@ import distanceBetween from '../utils/distanceCalculator';
 function Bottle(title, body, lat, lng, author, id, collectedBy) {
 
     this.id = id;
-    this.collectedBy = collectedBy;
-    const self = this;
 
     const isCollected = function() {
-        return self.collectedBy;
+        return this.collectedBy;
     };
 
     const setCollector = function(collector) {
-        self.collectedBy = collector;
+        this.collectedBy = collector;
     };
 
     const isCollectedBy = function(collector) {
-        return self.collectedBy === collector;
+        return this.collectedBy === collector;
     };
 
     const meterDistanceFrom = function(position) {
@@ -31,6 +29,7 @@ function Bottle(title, body, lat, lng, author, id, collectedBy) {
             lng
         },
         author,
+        collectedBy,
         isCollected,
         setCollector,
         isCollectedBy,
